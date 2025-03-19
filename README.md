@@ -4,7 +4,7 @@
 
 # Kayno.AI.Studio (カイノ) とは？
 
-![Kayno](./Kayno.AI.Studio/_res/readme/001.png)
+![Kayno](./Kayno.AI.Studio/Documents/Resources/001.png)
 
 Kayno.AI.Studio は、初心者からアーティストやプロまで誰でもかんたんに使えるようデザインされた、 Stable diffusion WebUI (SDWebUI) ベースのAIアプリです。
 
@@ -54,7 +54,7 @@ https://github.com/AUTOMATIC1111
 
 ### 詳しい使い方:
 初回インストールなどのその他詳細は
-[ReadMe.チュートリアル](./Kayno.AI.Studio/ReadMe.チュートリアル.md) をご覧ください。
+[ReadMe.チュートリアル](./Kayno.AI.Studio/Documents/ReadMe.チュートリアル.md) をご覧ください。
 
 <br>
 
@@ -152,7 +152,7 @@ QuickSettingsや拡張機能を含むプリセットとセッションの保存�
 
 
 ## FAQ
-[こちら](./Kayno.AI.Studio/ReadMe.FAQ.md)をご覧ください。
+[こちら](./Kayno.AI.Studio/Documents/Resources/ReadMe.FAQ.md)をご覧ください。
 
 <br>
 
@@ -218,7 +218,7 @@ ResizeByがデフォで、解像度指定での生成はPayloadの書き換え�
 
 ## Payload のカスタム
 こちらをご覧ください。  
-[Payloadフォーマット](./Kayno.AI.Studio/ReadMe.Payloadフォーマット.md)
+[Payloadフォーマット](./Kayno.AI.Studio/Documents/Resources/ReadMe.Payloadフォーマット.md)
 
 
 ## 開発者向け情報
