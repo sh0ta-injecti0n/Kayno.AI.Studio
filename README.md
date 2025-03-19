@@ -1,5 +1,5 @@
 ﻿
-[日本語](./Kayno.AI.Studio/ReadMe.md) | [en-US](./Kayno.AI.Studio/ReadMe.en-US.md) |
+[日本語](./ReadMe.md) | [en-US](./ReadMe.en-US.md) |
 
 
 # Kayno.AI.Studio (カイノ) とは？
@@ -218,7 +218,7 @@ ResizeByがデフォで、解像度指定での生成はPayloadの書き換え�
 
 ## Payload のカスタム
 こちらをご覧ください。  
-[Payloadフォーマット](./Kayno.AI.Studio/Documents/Resources/ReadMe.Payloadフォーマット.md)
+[Payloadフォーマット](./Kayno.AI.Studio/Documents/ReadMe.Payloadフォーマット.md)
 
 
 ## 開発者向け情報
