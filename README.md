@@ -43,7 +43,8 @@ https://github.com/AUTOMATIC1111
 4. プリセットをベースに下絵を描いて送る
 
 **・下描きから生成:**  
-![動画](./Kayno.AI.Studio/_res/readme/001.mp4)  
+https://github.com/user-attachments/assets/f0ffb04b-7bb6-42af-baa7-0a2a81a9700c
+
 
 **・マンガコマ割り:**  
 ~~[_res/readme/001.mp4]~~  
