@@ -50,8 +50,7 @@ https://github.com/AUTOMATIC1111
 
 **・BlenderからDepth:**   
 [_res/readme/001.mp4]  
-キャプチャ、CN切り替え、Depth、
-
+※作業中...
 
 ### 詳しい使い方:
 初回インストールなどのその他詳細は

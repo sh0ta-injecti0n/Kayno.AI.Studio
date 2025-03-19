@@ -12,11 +12,12 @@
     <FontFamily x:Key="GlobalFontFamily1">/Kayno.AI.Studio;component/_res/fonts/NotoSansJP-Bold.otf#Noto Sans JP</FontFamily>
     <FontFamily x:Key="GlobalFontFamily2">/Kayno.AI.Studio;component/_res/fonts/SpicaNeue-Regular.ttf#Spica Neue Regular</FontFamily>
 
+    <!--
     <FontFamily x:Key="FontIcon1">/Kayno.AI.Studio;component/_res/fonts/MaterialIconsRound-Regular.otf#Material Icons Round Regular</FontFamily>
     <FontFamily x:Key="FontIcon2">/Kayno.AI.Studio;component/_res/fonts/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf#Material Symbols Rounded</FontFamily>
+    -->
     <FontFamily x:Key="FontIcon3">/Kayno.AI.Studio;component/_res/fonts/Font Awesome 6 Free-Regular-400.otf#Font Awesome 6 Free Regular</FontFamily>
     <FontFamily x:Key="FontIcon4">/Kayno.AI.Studio;component/_res/fonts/Font Awesome 6 Free-Solid-900.otf#Font Awesome 6 Free Solid</FontFamily>
-    <FontFamily x:Key="FontIcon5">/Kayno.AI.Studio;component/_res/fonts/EmojiOneColor.otf#EmojiOne</FontFamily>
 
     <!--
         WPFのバグ？でハイフン付きのリガチャ(Liguature, 合字)はサポートされない。

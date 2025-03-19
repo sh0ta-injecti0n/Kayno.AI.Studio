@@ -41,32 +41,20 @@
 
   <ItemGroup>
     <None Remove="Data\000\data_payload - コピー.json" />
-    <None Remove="_res\fonts\Capella-Bold.ttf" />
-    <None Remove="_res\fonts\Capella-Light.ttf" />
-    <None Remove="_res\fonts\Capella-Regular.ttf" />
-    <None Remove="_res\fonts\EmojiOneColor.otf" />
     <None Remove="_res\fonts\Font Awesome 6 Brands-Regular-400.otf" />
     <None Remove="_res\fonts\Font Awesome 6 Free-Regular-400.otf" />
     <None Remove="_res\fonts\Font Awesome 6 Free-Solid-900.otf" />
-    <None Remove="_res\fonts\MaterialIconsRound-Regular.otf" />
-    <None Remove="_res\fonts\MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf" />
-    <None Remove="_res\fonts\migu-1c-bold.ttf" />
-    <None Remove="_res\fonts\migu-1c-regular.ttf" />
-    <None Remove="_res\fonts\migu-1m-bold.ttf" />
-    <None Remove="_res\fonts\migu-1m-regular.ttf" />
     <None Remove="_res\fonts\NotoSansJP-Bold.otf" />
     <None Remove="_res\fonts\NotoSansJP-Light.otf" />
     <None Remove="_res\fonts\NotoSansJP-Regular.otf" />
     <None Remove="_res\fonts\SpicaNeue-Bold.ttf" />
     <None Remove="_res\fonts\SpicaNeue-Light.ttf" />
     <None Remove="_res\fonts\SpicaNeue-Regular.ttf" />
-    <None Remove="_res\fonts\SpicaNeueP-Bold.ttf" />
-    <None Remove="_res\fonts\SpicaNeueP-Light.ttf" />
-    <None Remove="_res\fonts\SpicaNeueP-Regular.ttf" />
     <None Remove="_res\sample\_sample_result.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="_designTemplates\Styles\StyleComboBox.xaml" />
     <Page Remove="_designTemplates\Styles\WORKAROUND_WPFUI_ComboBox_GroupingBug.xaml" />
   </ItemGroup>
 
@@ -75,8 +63,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="_functions\Web\_legacy\" />
-    <Folder Include="_functions\FileSystemWatcher\" />
     <Folder Include="Documents\Resources\" />
   </ItemGroup>
 
@@ -89,19 +75,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="_res\fonts\Capella-Bold.ttf" />
-    <Resource Include="_res\fonts\Capella-Light.ttf" />
-    <Resource Include="_res\fonts\Capella-Regular.ttf" />
-    <Resource Include="_res\fonts\EmojiOneColor.otf" />
     <Resource Include="_res\fonts\Font Awesome 6 Brands-Regular-400.otf" />
     <Resource Include="_res\fonts\Font Awesome 6 Free-Regular-400.otf" />
     <Resource Include="_res\fonts\Font Awesome 6 Free-Solid-900.otf" />
-    <Resource Include="_res\fonts\MaterialIconsRound-Regular.otf" />
-    <Resource Include="_res\fonts\MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf" />
-    <Resource Include="_res\fonts\migu-1c-bold.ttf" />
-    <Resource Include="_res\fonts\migu-1c-regular.ttf" />
-    <Resource Include="_res\fonts\migu-1m-bold.ttf" />
-    <Resource Include="_res\fonts\migu-1m-regular.ttf" />
     <Resource Include="_res\fonts\NotoSansJP-Bold.otf">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -110,9 +86,6 @@
     <Resource Include="_res\fonts\SpicaNeue-Bold.ttf" />
     <Resource Include="_res\fonts\SpicaNeue-Light.ttf" />
     <Resource Include="_res\fonts\SpicaNeue-Regular.ttf" />
-    <Resource Include="_res\fonts\SpicaNeueP-Bold.ttf" />
-    <Resource Include="_res\fonts\SpicaNeueP-Light.ttf" />
-    <Resource Include="_res\fonts\SpicaNeueP-Regular.ttf" />
     <Resource Include="_res\sample\_sample_result.jpg" />
   </ItemGroup>
 
@@ -210,12 +183,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="DataGlobal\ItemsSource_-_model_sd_vae.tsv">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="DataGlobal\ItemsSource_-_preset_EasyCN.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DataGlobal\ItemsSource_-_prompt.tsv">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="DataGlobal\ItemsSource_-_res_preset.tsv">
