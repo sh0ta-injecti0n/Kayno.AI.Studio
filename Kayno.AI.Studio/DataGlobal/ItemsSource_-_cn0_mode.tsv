@@ -1,0 +1,4 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+Balanced	1		バランス					test1, t1			
+Prompt	2		プロンプト								
+CN	3		ControlNet					t3			

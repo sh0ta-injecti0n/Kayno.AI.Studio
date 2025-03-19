@@ -1,0 +1,60 @@
+PropertyName	PropertyValue	Label	LabelSrc	Tag	WebSelectorKey	WebSelectorValue	UI	UI_IsPinned	UI_IsVisible	UI_SliderMinVal	UI_SliderMaxVal	UI_SliderSnapValue	UI_ItemsSourcePath	UI_ItemsSource	UI_ItemsSourceFilter	Command	Comments
+url	http://localhost:7860	URL	URL				TextBox	False	True								SDWebUIのパス
+model_name	16	モデル名	Model Name		XPath	//*[@id="setting_sd_model_checkpoint"]/label/div/div[1]/div/input	List	True	True				.\DataGlobal\ItemsSource_-_models_stable-diffusion.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]	models\stable-diffusion		使用するモデル(データセット)
+model_sd_vae	17	SD Vae	SD Vae		XPath	//*[@id="setting_sd_vae"]/label/div/div[1]/div/input	List	False	True				.\DataGlobal\ItemsSource_-_models_vae.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]	models\VAE		VAE (画像の方向性)
+clip_skip_sdxl	True	自動Clip Skip (SDXL)	Auto Clip Skip (SDXL)		XPath	//*[@id="setting_sdxl_clip_l_skip"]/label/input	CheckBox	False	True								SDXLにおいてCLIP Skipを自動で行います。
+clip_skip	2	Clip Skip	Clip Skip		XPath	//*[@id="setting_CLIP_stop_at_last_layers"]/div[2]/div/input	Slider	False	True	1	12	1					プロンプトへの厳密性 (最近のモデルは「2」を推奨)
+token_merging_ratio	0.8	ToMe (冗長な単語のマージ率)	Token Merging Ratio		XPath	//*[@id="setting_token_merging_ratio"]/div[2]/div/input	Slider	False	True	0	1	0.1					※ここでのトークンは画像ピクセルのこと。1に近いほどトークンが省かれていくが、省略されるので画質は下がる
+tab_img2img		tab_img2img	tab_img2img		XPath	//*[@id="tabs"]/div[1]/button[2]	Button	False	False								
+button_generate		button_generate	button_generate		XPath	//*[@id="img2img_generate"]	Button	False	False								
+prompt	"1boy, 13yo boy, beautiful face, green eyes, {messy:1.1} long blonde hair, 
+thick eyebrows, light smile, 
+{androgynous:1.2}, flat chest, 
+v with right hand, left hand on ground, 
+BREAK
+transparent hoodie, gradient acrylic hoodie, 
+sitting on beach, legs stretched out, 
+{textured:1.2} {deep royalblue tights:1.4}, light brown boys shorts, 
+BREAK
+soft lighting, sunlight, {dynamic angle:0.8}, {from_above:0.5}, 
+masterpiece, best quality, absurdres, newest, very aesthetic, amazing quality, highres, sensitive, photo background, realistic background,"	プロンプト	Prompt	👍️	XPath	//*[@id="img2img_prompt"]/label/textarea	TextBox	True	True				.\DataGlobal\ItemsSource_-_prompt.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			プロンプトはいわば命令文であり、作品の主題や色、構図などの詳細を書きます。
+prompt_neg	"nsfw, 1girl, girls, girl, multiple girls, multiple_people, bra, black pantyhose, blown_pantyhose, 
+lowres, (bad), bad feet, text, error, fewer, extra, missing, worst quality, jpeg artifacts, low quality, watermark, unfinished, displeasing, oldest, early, chromatic aberration, signature, artistic error, username, scan, [abstract], english text,"	ネガティブプロンプト	Negative Prompt	👎️	XPath	//*[@id="img2img_neg_prompt"]/label/textarea	TextBox	True	True				.\DataGlobal\ItemsSource_-_prompt.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			含めたくないモチーフやオブジェクトなどを書きます。
+model_lora	-1	LoRA	LoRA				List	False	True				.\DataGlobal\ItemsSource_-_models_lora.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]	models\lora		LoRA (特定キャラやモチーフの再現に特化したモデル)
+model_emb	-1	Embedding	Embedding				List	False	True				.\DataGlobal\ItemsSource_-_embeddings.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]	embeddings		Embedding(s) (いわばプロンプト集)
+tab_img2img_img2img		img2img>img2img	img2img>img2img		XPath	//*[@id="mode_img2img"]/div[1]/button[1]	Button	False	False								
+area_img2img	area_img2img.png	img2img_uploadArea	img2img_uploadArea		XPath	//div[@id='img2img_image']	DropArea	False	True								※アップロードエリア(i2i)
+use_img2img_alt	False	キャプチャの代わりに画像指定	Not Capture, Use image path				CheckBox	False	True								キャプチャではなく指定した画像を送信するかどうか
+area_img2img_alt		img2img_alt	img2img_alt		XPath	//div[@id='img2img_image']	DropArea	False	True								代替で送信する画像
+sampling	0	ノイズ除去アルゴリズム	Sampling Method		XPath	//*[@id="img2img_sampling"]/label/div/div[1]/div/input	List	False	True				.\DataGlobal\ItemsSource_-_sampling.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			DPM++ 2M を推奨
+scheduler	0	ノイズ除去過程	Scheduler Type		XPath	//*[@id="img2img_scheduler"]/label/div/div[1]/div/input	List	False	True				.\DataGlobal\ItemsSource_-_scheduler.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			Karras を推奨
+steps	20	ノイズ除去ステップ数	Sampling Steps		XPath	//*[@id="img2img_steps"]/div[2]/div/input	Slider	False	True	1	150	1					多いほど画像のノイズが少なく鮮明になり、レンダリングに時間がかかります。　※「ノイズ→画像」への逆算の回数。
+res_preset	0	解像度プリセット	Resolution				List	False	True				.\DataGlobal\ItemsSource_-_res_preset.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			解像度のプリセット
+res_w	768	↔  W :	↔  W :				Slider	False	True	2	16384	2					MaxValueはテスト
+res_h	768	□↕ H :	□↕  H :				Slider	False	True	2	16384	2					MaxValueはテスト
+res_autofit	True	キャプチャ領域を自動リサイズ	Fit capture region to WxH				CheckBox	False	True								画面キャプチャの領域を自動でリサイズします。
+button_resize_by		button_resize_by	button_resize_by		XPath	//*[@id="img2img_tabs_resize"]/div[1]/button[2]	Button	False	False								
+scale	1	出力スケール (Resize by)	Scale (Resize by)		XPath	//*[@id="img2img_scale"]/div[2]/div/input	Slider	False	True	0.05	4	0.05					画像の拡大率
+batch_count	1	バッチ回数	Batch Count		XPath	//*[@id="img2img_batch_count"]/div[2]/div/input	Slider	False	True	1	100	1					現在のパラメーター(Payload)で複数回生成を繰り返します。Seedが-1なら違う画像がランダムに複数枚生成されます。
+batch_size	1	バッチ組数	Batch Size		XPath	//*[@id="img2img_batch_size"]/div[2]/div/input	Slider	False	True	1	8	1					サイズ=2なら2個を一気に生成する(その分VRAM消費↑)
+cfg_scale	7	CFG スケール	CFG Scale		XPath	//*[@id="img2img_cfg_scale"]/div[2]/div/input	Slider	False	True	1	30	0.5					プロンプトへの忠実度。6～8を推奨
+denoising_strength	0.75	ノイズ除去強度	Denoising Strength		XPath	//*[@id="img2img_denoising_strength"]/div[2]/div/input	Slider	False	True	0	1	0.01					0: no change, 1: big change
+seed	-1	シード値	Seed		XPath	//*[@id="img2img_seed"]/label/input	Slider	False	True	-1	1.8446744073709519E+19	1					-1ならランダム、それ以外なら数値ごとに画像が出ます。
+dynthres_img2img	False	Dynamic CFG を使用	Use Dynamic CFG		XPath	//*[@id="dynthres_img2img"]/div[2]/span[1]/input	CheckBox	False	True								CFGを上げても破綻が少なくなります。
+dynthres_mimic_scale	7	Dynamic CFG	Dynamic CFG Value		XPath	//*[@id="dynthres_mimic_scale"]/div[2]/div/input	Slider	False	True	1	30	0.5					Dynami CFG Mimicの値 (最低保証値のようなもの。元のCFGより変化しすぎないこと。)
+tab_img2img_cn		img2img>cn	img2img>cn		XPath	//*[@id="img2img_controlnet"]	Button	False	False								CN アコーディオン(開かないと中がクリックできない)
+tab_img2img_cn0		img2img>cn0	img2img>cn0		XPath	//*[@id="img2img_controlnet_tabs"]/div[1]/button[1]	Button	False	False								
+cn0_enable	True	ControlNet1 を使用	Use ControlNet1		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_enable_checkbox"]/label/input	CheckBox	False	True								ControlNet1 を使用
+cn0_low_vram	False	低VRAM	Low VRAM		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_low_vram_checkbox"]/label/input	CheckBox	False	True								低VRAM
+cn0_pixelperfect	False	Pixel Perfect	Pixel Perfect		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_pixel_perfect_checkbox"]/label/input	CheckBox	False	True								Pixel Perfect
+cn0_independent_img	False	個別に画像を使用	Upload independent control image		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_same_img2img_checkbox"]/label/input	CheckBox	False	True								個別に画像を使用
+cn0_mask	False	マスクを使用	Effective Region Mask		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_mask_upload_checkbox"]/label/input	CheckBox	False	True								マスクを使用
+area_ControlNet-0_independentImage	area_ControlNet-0_independentImage.png	area_ControlNet-0_independentImage	area_ControlNet-0_independentImage		XPath	//*[@id="img2img_controlnet_ControlNet-0_input_image"]	DropArea	False	True								※アップロードエリア(i2i)
+area_ControlNet-0_Mask	area_ControlNet-0_Mask.png	area_ControlNet-0_Mask	area_ControlNet-0_Mask		XPath	//*[@id="img2img_controlnet_ControlNet-0_mask_image"]	DropArea	False	True								※アップロードエリア(i2i)
+cn0_type	15	CNタイプ	CN Type		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_type_filter_radio"]/div[2]/label[1]/input	List	False	True				.\DataGlobal\ItemsSource_-_cn0_type.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			ControlNetの種類(線画からの生成ならLineartを選ぶ、など) ※開発者向けコメント: Payloadにおいて fieldsets は labe[1] をずらすこと
+cn0_pp	40	CN プリプロセッサ	CN Preprocessor		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_preprocessor_dropdown"]/label/div/div[1]/div/input	List	False	True				.\DataGlobal\ItemsSource_-_cn0_pp.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			ControlNet の種類別の方式
+cn0_model	78	CN モデル	CN Model		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_model_dropdown"]/label/div/div[1]/div/input	List	False	True				.\DataGlobal\ItemsSource_-_models_controlnet.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]	models\controlnet		ControlNet のモデル
+cn0_weight	1	CN 影響度	CN Weight		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_control_weight_slider"]/div[2]/div/input	Slider	False	True	0	1	0.01					CN 影響度
+cn0_start	0	CN 開始点	CN Start		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_start_control_step_slider"]/div[2]/div/input	Slider	False	True	0	1	0.01					CN 開始点
+cn0_end	1	CN 終了点	CN End		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_ending_control_step_slider"]/div[2]/div/input	Slider	False	True	0	1	0.01					CN 終了点
+cn0_mode	0	CN モード	CN Mode		XPath	//*[@id="img2img_controlnet_ControlNet-0_controlnet_control_mode_radio"]/div[2]/label[1]/input	SplitButton	False	True				.\DataGlobal\ItemsSource_-_cn0_mode.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			ControlNet の効き具合。※開発者向け: label[1]をずらすこと。初期Balanced

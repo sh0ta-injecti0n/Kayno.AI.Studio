@@ -1,0 +1,248 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PlatformTarget>x64</PlatformTarget>
+    <ApplicationIcon>_res\img\Design.Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\_dev\**" />
+    <Compile Remove="_functions\Pref\**" />
+    <EmbeddedResource Remove="Data\_dev\**" />
+    <EmbeddedResource Remove="_functions\Pref\**" />
+    <None Remove="Data\_dev\**" />
+    <None Remove="_functions\Pref\**" />
+    <Page Remove="Data\_dev\**" />
+    <Page Remove="_functions\Pref\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="_functions\Extensions\XAMLConverters\_ConverterDataSDModel.cs" />
+    <Compile Remove="_functions\MainWindow_RestoreWindowStates.cs" />
+    <Compile Remove="_functions\PayloadManager\_payload_legacy.cs" />
+    <Compile Remove="_functions\PayloadManager\__Payloads.cs" />
+    <Compile Remove="_functions\PInvokeSeries.cs" />
+    <Compile Remove="_functions\Web\_legacy\WebRequest_Sender.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\000\data_payload - コピー.json" />
+    <None Remove="_res\fonts\Capella-Bold.ttf" />
+    <None Remove="_res\fonts\Capella-Light.ttf" />
+    <None Remove="_res\fonts\Capella-Regular.ttf" />
+    <None Remove="_res\fonts\EmojiOneColor.otf" />
+    <None Remove="_res\fonts\Font Awesome 6 Brands-Regular-400.otf" />
+    <None Remove="_res\fonts\Font Awesome 6 Free-Regular-400.otf" />
+    <None Remove="_res\fonts\Font Awesome 6 Free-Solid-900.otf" />
+    <None Remove="_res\fonts\MaterialIconsRound-Regular.otf" />
+    <None Remove="_res\fonts\MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf" />
+    <None Remove="_res\fonts\migu-1c-bold.ttf" />
+    <None Remove="_res\fonts\migu-1c-regular.ttf" />
+    <None Remove="_res\fonts\migu-1m-bold.ttf" />
+    <None Remove="_res\fonts\migu-1m-regular.ttf" />
+    <None Remove="_res\fonts\NotoSansJP-Bold.otf" />
+    <None Remove="_res\fonts\NotoSansJP-Light.otf" />
+    <None Remove="_res\fonts\NotoSansJP-Regular.otf" />
+    <None Remove="_res\fonts\SpicaNeue-Bold.ttf" />
+    <None Remove="_res\fonts\SpicaNeue-Light.ttf" />
+    <None Remove="_res\fonts\SpicaNeue-Regular.ttf" />
+    <None Remove="_res\fonts\SpicaNeueP-Bold.ttf" />
+    <None Remove="_res\fonts\SpicaNeueP-Light.ttf" />
+    <None Remove="_res\fonts\SpicaNeueP-Regular.ttf" />
+    <None Remove="_res\sample\_sample_result.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="_designTemplates\Styles\WORKAROUND_WPFUI_ComboBox_GroupingBug.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="_res\img\Design.Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="_functions\Web\_legacy\" />
+    <Folder Include="_functions\FileSystemWatcher\" />
+    <Folder Include="Documents\Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IronPython" Version="3.4.2" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.29.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.1" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="2.1.1" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="_res\fonts\Capella-Bold.ttf" />
+    <Resource Include="_res\fonts\Capella-Light.ttf" />
+    <Resource Include="_res\fonts\Capella-Regular.ttf" />
+    <Resource Include="_res\fonts\EmojiOneColor.otf" />
+    <Resource Include="_res\fonts\Font Awesome 6 Brands-Regular-400.otf" />
+    <Resource Include="_res\fonts\Font Awesome 6 Free-Regular-400.otf" />
+    <Resource Include="_res\fonts\Font Awesome 6 Free-Solid-900.otf" />
+    <Resource Include="_res\fonts\MaterialIconsRound-Regular.otf" />
+    <Resource Include="_res\fonts\MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf" />
+    <Resource Include="_res\fonts\migu-1c-bold.ttf" />
+    <Resource Include="_res\fonts\migu-1c-regular.ttf" />
+    <Resource Include="_res\fonts\migu-1m-bold.ttf" />
+    <Resource Include="_res\fonts\migu-1m-regular.ttf" />
+    <Resource Include="_res\fonts\NotoSansJP-Bold.otf">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_res\fonts\NotoSansJP-Light.otf" />
+    <Resource Include="_res\fonts\NotoSansJP-Regular.otf" />
+    <Resource Include="_res\fonts\SpicaNeue-Bold.ttf" />
+    <Resource Include="_res\fonts\SpicaNeue-Light.ttf" />
+    <Resource Include="_res\fonts\SpicaNeue-Regular.ttf" />
+    <Resource Include="_res\fonts\SpicaNeueP-Bold.ttf" />
+    <Resource Include="_res\fonts\SpicaNeueP-Light.ttf" />
+    <Resource Include="_res\fonts\SpicaNeueP-Regular.ttf" />
+    <Resource Include="_res\sample\_sample_result.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="_designTemplates\Templates\ItemsControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Addon\addon_sample.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\000_Sketch_test.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\area_ControlNet-0_independentImage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\area_ControlNet-0_Mask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\area_img2img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\Payload.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\001_Sketch\TSV,CSV エディター (オンライン).url">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\area_ControlNet-0_independentImage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\area_ControlNet-0_Mask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\area_img2img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\DataPayload.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\ItemsSourcce_-_res_preset.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_cn0_mode.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_cn0_model.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_cn0_pp.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_cn0_type.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\ItemsSource_-_ControlNet-0_controlnet_control_mode_radio.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\ItemsSource_-_ControlNet-0_controlnet_model_dropdown.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\ItemsSource_-_ControlNet-0_controlnet_preprocessor_dropdown.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\ItemsSource_-_ControlNet-0_controlnet_type_filter_radio.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_model_emb.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_model_lora.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_model_name.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_model_sd_vae.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_preset_EasyCN.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_prompt.tsv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_res_preset.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_sampling.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataGlobal\ItemsSource_-_scheduler.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\Payload.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\000\TSV,CSV エディター %28オンライン%29.url">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="_designTemplates\Templates\ItemsControl1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

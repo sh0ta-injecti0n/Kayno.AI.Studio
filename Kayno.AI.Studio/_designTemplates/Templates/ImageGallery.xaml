@@ -1,0 +1,139 @@
+﻿<UserControl
+    x:Class="Kayno.AI.Studio.ImageGallery"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Kayno.AI.Studio"
+    xmlns:Prop="clr-namespace:Kayno.AI.Studio.Properties"
+    d:DesignHeight="480"
+    d:DesignWidth="320"
+    Background="Black"
+    mc:Ignorable="d"
+    >
+    <UserControl.Resources>
+        <ItemsPanelTemplate x:Key="ListViewItemsPanel1">
+            <StackPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="ListViewItemTemplate1">
+            <Grid>
+                <Image
+                    Margin="0"
+                    Source="{Binding Image}"
+                    RenderOptions.BitmapScalingMode="Fant"
+                    RenderOptions.EdgeMode="Aliased"
+                    />
+            </Grid>
+        </DataTemplate>
+
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonIcon}">
+            <Setter Property="Background" Value="#00000000" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        Direction="-90"
+                        ShadowDepth="2"
+                        BlurRadius="16"
+                        Opacity="0.4"
+                        />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{StaticResource SolidBase1}" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Width" Value="40" />
+        </Style>
+    </UserControl.Resources>
+
+
+
+
+
+    <Grid>
+
+
+        <Border x:Name="paneMain" ClipToBounds="True">
+            <Image
+                x:Name="imageMain"
+                d:Source="/_res/sample/_sample_result.jpg"
+                Source="{Binding CurrentImage}"
+                RenderTransformOrigin="0.5,0.5"
+                >
+                <Image.RenderTransform>
+                    <TranslateTransform x:Name="imageTranslateTransform" />
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+
+        <Grid x:Name="pane_Controls" Visibility="Visible">
+
+            <Grid
+                x:Name="paneTop"
+                Height="48"
+                Margin="8"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Content=""
+                        Click="Button_Reload_Click"
+                        ToolTip="{x:Static Prop:Resources.ImageGallery_Reload}"
+                        ToolTipService.InitialShowDelay="1"
+                        />
+                    <Border Width="12" />
+                    <Button
+                        Content=""
+                        Click="Button_FullScreen_Click"
+                        ToolTip="{x:Static Prop:Resources.ImageGallery_Fullscreen}"
+                        ToolTipService.InitialShowDelay="1"
+                        />
+                </StackPanel>
+            </Grid>
+
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="‹"
+                Click="Button_IncDec_Click"
+                />
+
+            <Button
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="›"
+                Click="Button_IncDec_Click"
+                />
+
+            <Border
+                x:Name="paneBottom"
+                Height="80"
+                Margin="24"
+                VerticalAlignment="Bottom"
+                CornerRadius="16"
+                Background="#ad000000"
+                >
+                <DockPanel>
+                    <ListView
+                        x:Name="listView_ThumbList"
+                        Margin="8"
+                        Style="{StaticResource ListView1}"
+                        ItemsPanel="{StaticResource ListViewItemsPanel1}"
+                        ItemContainerStyle="{StaticResource ListViewItemContainerStyle1}"
+                        ItemTemplate="{DynamicResource ListViewItemTemplate1}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        SelectedIndex="{Binding CurrentImageIndex}"
+                        SelectionChanged="listView_ThumbList_SelectionChanged"
+                        ItemsSource="{Binding Imageitems}"
+                        />
+
+                </DockPanel>
+            </Border>
+
+        </Grid>
+
+
+    </Grid>
+</UserControl>

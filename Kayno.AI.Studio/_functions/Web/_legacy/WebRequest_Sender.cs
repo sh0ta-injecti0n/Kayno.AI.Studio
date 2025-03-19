@@ -1,0 +1,324 @@
+﻿using System.Windows.Data;
+
+namespace Kayno.AI.Studio
+{
+	public partial class MainWindow : Window
+	{
+
+		string SDWebUI_BaseURL = Pref.Default.SDWebUI_BaseURL;
+		string SDWebUI_BaseURL_API= Pref.Default.SDWebUI_BaseURL_API;
+		string SDWebUI_BaseURL_Option = Pref.Default.SDWebUI_BaseURL_Option;
+		string SDWebUI_BaseURL_Models = Pref.Default.SDWebUI_BaseURL_Models;
+
+
+		public ObservableCollection<Data_SDModel> DataSDModels
+		{
+			get;
+			set;
+		}
+
+		Data_SDPayloadOption DataPayloadOpt { get; set; }
+
+		Data_SDPayload DataPayload { get; set; }
+
+
+		async Task RefreshModelsList()
+		{
+			var url = SDWebUI_BaseURL + SDWebUI_BaseURL_Models;
+
+			var response = await GetWebRequest(url);
+			
+			var data = await response.Content.ReadAsStringAsync();
+			var json = JsonSerializer.Deserialize<List<Data_SDModel>>(data);
+
+			DataSDModels = new ObservableCollection<Data_SDModel>(json);
+			this.comboBox_models.ItemsSource = DataSDModels;
+			
+
+			/*
+			 * サブフォルダは_で区切ってるだけなので、
+			 * 単純に C# の Directory.Enum~ で代用可能
+			 * 
+			 */
+
+			return;
+		}
+
+
+			async Task RefreshModelsList_old()
+		{
+			var url = SDWebUI_BaseURL + SDWebUI_BaseURL_Models;
+
+			var response = await GetWebRequest(url);
+
+			//var dataJsonListString = await response.GetJsonListStringFromResponse//("model_name");
+			//Data_SDModels = [];
+			//dataJsonListString.ForEach(x => Data_SDModels.Add(x));
+
+			//comboBox_models.ItemsSource = dataJsonListString;
+
+			var data = await response.Content.ReadAsStringAsync();
+			var json = JsonSerializer.Deserialize<List<Data_SDModel>>(data);
+
+			DataSDModels = new ObservableCollection<Data_SDModel>(json);
+			this.comboBox_models.ItemsSource = DataSDModels;
+
+
+			/*
+			 * サブフォルダは_で区切ってるだけなので、
+			 * 単純に C# の Directory.Enum~ で代用可能
+			 * 
+			 */
+
+			//this.comboBox_models.ItemsSource = Data_SDModels;
+
+			//this.comboBox_models.DataContext = dataJson;
+			//this.comboBox_models.ItemsSource = dataJson;
+
+			//var res = this.Resources["ComboBox_ModelsSource"] as /CollectionViewSource;
+			//res.Source = Data_SDModels;
+			//using (res.DeferRefresh())
+			//{
+			//	var group = new PropertyGroupDescription("Folder");
+			//	res.GroupDescriptions.Add(group);
+			//}
+			//this.comboBox_models.DataContext = res;
+
+
+			//var collectionView = new ListCollectionView(Data_SDModels);
+			//collectionView.GroupDescriptions.Add
+			//	(
+			//		new PropertyGroupDescription
+			//		(
+			//			"Folder"
+			//		)
+			//	);
+			//comboBox_models.ItemsSource = collectionView;
+
+			return;
+		}
+
+
+		public async Task InitGenerationData()
+		{
+			var url = SDWebUI_BaseURL + SDWebUI_BaseURL_Option;
+			//var json = GetDataPayloadOptionJson();
+			var json = JsonSerializer.Serialize(DataPayloadOpt);
+
+			var act = new Action(() => Debug.WriteLine("Init GenData:  OK."));
+			var response = await SendWebRequest(url, json, act);
+		}
+
+
+
+		/// <summary>
+		/// Get web response.
+		/// </summary>
+		/// <param name="url">url + api</param>
+		/// <param name="act">Action after recieved the response</param>
+		/// <returns></returns>
+		async Task<HttpResponseMessage> GetWebRequest(string url, Action<HttpResponseMessage> act = null)
+		{
+			using (var client = new HttpClient())
+			{
+				var response = await client.GetAsync(url);
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					if (act != null)
+					{
+						act(response);
+					}
+				}
+
+				return response;
+			}
+		}
+
+		/// <summary>
+		/// Send web request with json data.
+		/// </summary>
+		/// <param name="url">url + api</param>
+		/// <param name="json">json string, (automatically encoding inside)</param>
+		/// <param name="act">Action after recieved the response</param>
+		/// <returns></returns>
+		async Task<HttpResponseMessage> SendWebRequest(string url, string json, Action? act = null)
+		{
+			using (var client = new HttpClient())
+			{
+				var content = new StringContent(json, Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(url, content);
+
+				Debug.WriteLine(response.StatusCode);
+
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					Debug.WriteLine("OK");
+
+					if (act != null)
+					{
+						act();
+					}
+				}
+
+				return response;
+
+			}
+		}
+
+
+		public async Task SendGenerationData()
+		{
+			var url = SDWebUI_BaseURL + SDWebUI_BaseURL_API;
+			var json = JsonSerializer.Serialize(DataPayload);
+			Debug.WriteLine(json);
+
+			var response = await SendWebRequest(url, json);
+
+			await ReflectImageSource(response);
+		}
+
+		async Task ReflectImageSource(HttpResponseMessage response)
+		{
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				Debug.WriteLine("Generating...");
+				var response_data = await response.Content.ReadAsStringAsync();
+				// response data:
+				// "images": string[]
+				// "parameters": {}
+				// "info": string
+
+				var response_data_json = JsonSerializer.Deserialize<Data_SDResponseJson>(response_data);
+				//var response_data_json = GetGenerationDataFromJsonResponse( response_data );
+				// どちらかを使う。予め対応するクラスを作っておける今回は Deserialize.
+				// データが予測できない場合、JsonDocument を使って要素ごとに分解する。
+
+				for (int i = 0; i < response_data_json.images.Count; i++) 
+				{
+					var image = response_data_json.images[i];
+					if (i == 0)
+					{
+						var bmpImage = image.Base64StringToBitmapImage();
+						ImageMain.Source = bmpImage;
+					}
+					Debug.WriteLine(image);
+					Debug.WriteLine("Successfully Got Image.");
+					// CN やバッチだと複数返ってくる
+
+				}
+			}
+		}
+
+
+
+		public async Task SendGenerationData_old()
+		{
+			var url = SDWebUI_BaseURL + SDWebUI_BaseURL_API;
+			
+			//var json = File.ReadAllText(PathPayload, Encoding.UTF8);
+			var json = JsonSerializer.Serialize(DataPayload);
+			Debug.WriteLine(json);
+
+			using (var client = new HttpClient())
+			{
+				var content = new StringContent(json, Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(url, content);
+
+				Debug.WriteLine(response.StatusCode);
+
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					Debug.WriteLine("Generating...");
+
+					var response_data = await response.Content.ReadAsStringAsync();
+					// response data:
+					// "images": string[]
+					// "parameters": {}
+					// "info": string
+
+					var response_data_json = JsonSerializer.Deserialize<Data_SDResponseJson>(response_data);
+					//var response_data_json = GetGenerationDataFromJsonResponse( response_data );
+					// どちらかを使う。予め対応するクラスを作っておける今回は Deserialize.
+					// データが予測できない場合、JsonDocument を使って要素ごとに分解する。
+
+					foreach (var image in response_data_json.images)
+					{
+						if (image == null)
+						{
+							return;
+						}
+
+						Debug.WriteLine(image);
+						var bitmapImage = image.Base64StringToBitmapImage();
+						ImageMain.Source = bitmapImage;
+					}
+
+					//var images = GetGenerationDataFromJsonResponse(response_data)[0].ToString();
+
+				}
+				else
+				{
+					Debug.WriteLine("Cant Generate.");
+				}
+
+			}
+
+		}
+
+		//string GetDataPayloadJson()
+		//{
+		//	var payload = new Data_SDPayloadSample();
+		//	payload.prompt = textBox_prompt.Text;
+		//	payload.steps = 20;
+		//	var json = JsonSerializer.Serialize(payload);
+		//	// C# Class data -> json
+		//
+		//	// 実際は保存してある json から読み出すこと 
+		//
+		//	return json;
+		//}
+
+		//string GetDataPayloadOptionJson()
+		//{
+		//	var data = new Data_SDPayloadOption();
+		//	data.sd_model_checkpoint = DataSDModels//[comboBox_models.SelectedIndex].model_name;
+		//	data.CLIP_stop_at_last_layers = 1;
+		//
+		//	Debug.WriteLine(Pref.Default.Data_SDOption_ModelLastUsed);
+		//	var json = JsonSerializer.Serialize(data);
+		//
+		//	// 実際は保存してある json から読み出すこと 
+		//
+		//	return json;
+		//}
+		/// <summary>
+		/// Get SDWebUI generated images, parameters and PNGInfo from Json data.
+		/// </summary>
+		/// <param name="jsonResponse"></param>
+		/// <remarks>returned images (List(string)) are Base64 encoded string (loooong text).</remarks>
+		/// <returns>List(string), string, string </returns>
+		object[] GetGenerationDataFromJsonResponse(string jsonResponse)
+		{
+			using (var jsonDocument = JsonDocument.Parse(jsonResponse))
+			{
+				var jsonRoot = jsonDocument.RootElement;
+
+				var images = jsonRoot.GetProperty("images");
+				// 配列扱いなので注意
+				var imgList = images.EnumerateArray().Select( x => x.ToString() ).ToList();
+				var parameters = jsonRoot.GetProperty("parameters").ToString();
+				var info = jsonRoot.GetProperty("info").ToString();
+
+				return new object[] { imgList, parameters, info };
+				// returns List<string>, string, string
+			}
+
+		}
+
+
+
+	}
+
+
+
+}

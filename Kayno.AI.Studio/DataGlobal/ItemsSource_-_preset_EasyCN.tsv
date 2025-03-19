@@ -1,0 +1,10 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+slot1	1	.\ItemsSource_-_preset_EasyCN\1.png	線画から清書								線画から清書します。
+slot2	2	.\ItemsSource_-_preset_EasyCN\2.png	ラフから清書								ラフスケッチから清書します。
+slot3	3	.\ItemsSource_-_preset_EasyCN\3.png	深度マップから生成(Depth)								深度情報から生成します。白が手前で、カラー画像では自動検出します。
+slot4	4	.\ItemsSource_-_preset_EasyCN\4.png	似た人物にする1								Canny を使い似たキャラにします。
+slot5	5	.\ItemsSource_-_preset_EasyCN\5.png	似た人物にする2								Reference を使い似たキャラにします。
+slot6	6	.\ItemsSource_-_preset_EasyCN\6.png	?? 似た人物にする3								InstantIDを使用し、同一人物を生成します。
+slot7	7	.\ItemsSource_-_preset_EasyCN\7.png	高解像度化								解像度を上げます。
+slot8	8	.\ItemsSource_-_preset_EasyCN\8.png	色のレタッチ								配色をレタッチします。
+slot9	9	.\ItemsSource_-_preset_EasyCN\9.png	テキストレタッチ								テキスト指示でレタッチします。(例: smile, blue hair)

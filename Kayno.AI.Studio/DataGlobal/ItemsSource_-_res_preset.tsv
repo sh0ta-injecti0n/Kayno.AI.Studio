@@ -1,0 +1,24 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+slot0	0		Custom...	none	none			custom			
+slot1	1		512x512	□ 1:1	□ 1:1			SD1.5			
+slot2	2		768x768	□ 1:1	□ 1:1			SD2.0			
+slot3	3		1024x1024	□ 1:1	□ 1:1			SDXL			
+slot4	4		1280x1280	□ 1:1	□ 1:1						
+slot5	5		1920x1920	□ 1:1	□ 1:1						
+slot6	6		1920x1080	↔ 16:9	↔ 16:9						
+slot7	7		1280x720	↔ 16:9	↔ 16:9						
+slot8	8		960x540	↔ 16:9	↔ 16:9						
+slot9	9		1080x1920	↕　9:16	↕　9:16						
+slot10	10		720x1280	↕　9:16	↕　9:16						
+slot11	11		540x960	↕　9:16	↕　9:16						
+slot12	12		960x1600	↔ 10:16.7	↔ 10:16.7						
+slot13	13		768x1280	↔ 10:16.7	↔ 10:16.7						
+slot14	14		4096x4096	□ 1:1	□ 1:1			Large			
+slot15	15		1152x896	↔ (4:3)	↔ (4:3)			SDXL Recommend			
+slot16	16		1216x832	↔ (3:2)	↔ (3:2)			SDXL Recommend			
+slot17	17		1344x768	↔ (16:9)	↔ (16:9)			SDXL Recommend			
+slot18	18		1728x576	↔ (3:1)	↔ (3:1)			SDXL Recommend			
+slot19	19		576x1728	↕　(1:3)	↕　(1:3)			SDXL Recommend			
+slot20	20		768x1344	↕　(9:16)	↕　(9:16)			SDXL Recommend			
+slot21	21		832x1216	↕　(2:3)	↕　(2:3)			SDXL Recommend			
+slot22	22		896x1152	↕　(3:4)	↕　(3:4)			SDXL Recommend			

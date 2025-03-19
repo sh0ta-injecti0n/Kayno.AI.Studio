@@ -1,0 +1,21 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+dpm++_2m	0		DPM++ 2M	DPM	DPM			Common, Best			
+dpm++_sde	1		DPM++ SDE	DPM	DPM						
+dpm++_2m_sde	2		DPM++ 2M SDE	DPM	DPM						
+dpm++_2m_sde_heun	3		DPM++ 2M SDE heun	DPM	DPM						
+dpm++_2s_a	4		DPM++ 2S a	DPM	DPM						
+dpm++_3m_sde	5		DPM++ 3M SDE	DPM	DPM						
+euler_a	6		Euler a	Early	Early			Common			
+euler	7		Euler	Early	Early			Common			
+lms	8		LMS	Early	Early						
+heun	9		Heun	Early	Early						
+dpm2	10		DPM2	DPM	DPM						
+dpm2_a	11		DPM2 a	DPM	DPM						
+dpm_fast	12		DPM fast	DPM	DPM						
+dpm_adaptive	13		DPM adaptive	DPM	DPM						
+restart	14		Restart								
+ddim	15		DDIM	Early	Early						
+ddim_cfg++	16		DDIM CFG++								
+plms	17		PLMS	Early	Early						
+unipc	18		UniPC	Uni PC	Uni PC						
+lcm	19		LCM								

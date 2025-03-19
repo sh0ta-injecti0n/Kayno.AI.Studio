@@ -1,0 +1,13 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+automatic	0		Automatic					Common			
+uniform	1		Uniform								
+karras	2		Karras					Common, Best			
+exponential	3		Exponential								
+polyexponential	4		Polyexponential								
+sgm uniform	5		SGM Uniform								
+kl optimal	6		KL Optimal								
+align your steps	7		Align Your Steps								
+simple	8		Simple								
+normal	9		Normal								
+ddim	10		DDIM								
+beta	11		Beta								

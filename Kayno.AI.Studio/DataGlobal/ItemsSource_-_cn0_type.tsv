@@ -1,0 +1,23 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+none	0		None								
+all	1		All	All	All			All			
+canny	2		Canny	コピー	コピー			類似画像			
+depth	3		Depth	ポーズや構図	ポーズや構図			深度マップから抽出			
+ip-adapter	4		IP-Adapter	コピー	コピー						
+inpaint	5		Inpaint	レタッチ	レタッチ			レタッチ			
+instant-id	6		Instant-ID	コピー	コピー			再現度高めの人物コピー			
+instructp2p	7		InstructP2P	レタッチ	レタッチ			テキスト版レタッチ			
+lineart	8		Lineart	ポーズや構図	ポーズや構図			線画から抽出			
+mlsd	9		MLSD	ポーズや構図	ポーズや構図			まっすぐな線から抽出			
+normalmap	10		NormalMap	ポーズや構図	ポーズや構図			ノーマルマップから抽出			
+openpose	11		OpenPose	ポーズや構図	ポーズや構図			OpenPoseから抽出			
+recolor	12		Recolor	レタッチ	レタッチ						
+reference	13		Reference	コピー	コピー			人物コピー			
+revision	14		Revision	コピー	コピー			SDXL			
+scribble	15		Scribble	ポーズや構図	ポーズや構図			ラフから抽出			
+segmentation	16		Segmentation	ポーズや構図	ポーズや構図			オブジェクト抽出			
+shuffle	17		Shuffle	コピー	コピー			大枠の特徴を抽出			
+softedge	18		SoftEdge	ポーズや構図	ポーズや構図			画像から線を抽出			
+sparsectrl	19		SparseCtrl	制御	制御			アニメーションの安定化			
+t2i-adapter	20		T2I-Adapter	その他	その他			Controlnetの別Ver			
+tile	21		Tile ​	エフェクト	エフェクト			高解像度化			

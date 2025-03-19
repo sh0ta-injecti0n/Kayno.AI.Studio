@@ -1,0 +1,58 @@
+TPropertyName	TPropertyValue	TThumbPath	TLabel	TCategory	TCategory2	TPath	TParentDir	TTags	TDescription	TParameter	TComment
+animal_openpose	1		animal_openpose	OpenPose	OpenPose						
+densepose	2		densepose (pruple bg & purple torso)	OpenPose	OpenPose						
+densepose_parula	3		densepose_parula (black bg & blue torso)	OpenPose	OpenPose						
+depth_anything	4		depth_anything	Depth	Depth						
+depth_anything_v2	5		depth_anything_v2	Depth	Depth						
+depth_hand_refiner	6		depth_hand_refiner	Depth	Depth						
+depth_leres	7		depth_leres	Depth	Depth						
+depth_leres++	8		depth_leres++	Depth	Depth						
+depth	9		depth_midas	Depth	Depth						
+depth_zoe	10		depth_zoe	Depth	Depth						
+dw_openpose_full	11		dw_openpose_full	OpenPose	OpenPose						
+instant_id_face_embedding	12		instant_id_face_embedding	Instant-ID	Instant-ID						
+instant_id_face_keypoints	13		instant_id_face_keypoints	Instant-ID	Instant-ID						
+ip-adapter_clip_sd15	14		ip-adapter_clip_h	IP-Adapter	IP-Adapter						
+ip-adapter_clip_sdxl	15		ip-adapter_clip_g	IP-Adapter	IP-Adapter						
+ip-adapter_clip_sdxl_plus_vith	16		ip-adapter_clip_sdxl_plus_vith	IP-Adapter	IP-Adapter						
+ip-adapter_face_id	17		ip-adapter_face_id	IP-Adapter	IP-Adapter						
+ip-adapter_face_id_plus	18		ip-adapter_face_id_plus	IP-Adapter	IP-Adapter						
+lineart_anime	19		lineart_anime	Lineart	Lineart						
+lineart_anime_denoise	20		lineart_anime_denoise	Lineart	Lineart						
+lineart_coarse	21		lineart_coarse	Lineart	Lineart						
+lineart	22		lineart_realistic	Lineart	Lineart						
+lineart_standard	23		lineart_standard (from white bg & black line)	Lineart	Lineart						
+mediapipe_face	24		mediapipe_face								
+mlsd	25		mlsd	MLSD	MLSD						
+normal_bae	26		normal_bae	NormalMap	NormalMap						
+normal_map	27		normal_midas	NormalMap	NormalMap						
+openpose	28		openpose	OpenPose	OpenPose						
+openpose_face	29		openpose_face	OpenPose	OpenPose						
+openpose_faceonly	30		openpose_faceonly	OpenPose	OpenPose						
+openpose_full	31		openpose_full	OpenPose	OpenPose						
+openpose_hand	32		openpose_hand	OpenPose	OpenPose						
+recolor_intensity	33		recolor_intensity	Recolor	Recolor						
+recolor_luminance	34		recolor_luminance	Recolor	Recolor						
+reference_adain	35		reference_adain	Reference	Reference						
+reference_adain+attn	36		reference_adain+attn	Reference	Reference						
+reference_only	37		reference_only	Reference	Reference						
+revision_clipvision	38		revision_clipvision	Revision	Revision						
+revision_ignore_prompt	39		revision_ignore_prompt	Revision	Revision						
+scribble_hed	40		scribble_hed	Scribble, SparseCtrl	Scribble, SparseCtrl						
+pidinet_scribble	41		scribble_pidinet	Scribble, SparseCtrl	Scribble, SparseCtrl						
+anime_face_segment	42		seg_anime_face	Segmentation	Segmentation						
+oneformer_ade20k	43		seg_ofade20k	Segmentation	Segmentation						
+oneformer_coco	44		seg_ofcoco	Segmentation	Segmentation						
+segmentation	45		seg_ufade20k	Segmentation	Segmentation						
+hed	46		softedge_hed	SoftEdge	SoftEdge						
+hed_safe	47		softedge_hedsafe	SoftEdge	SoftEdge						
+pidinet	48		softedge_pidinet	SoftEdge	SoftEdge						
+pidinet_safe	49		softedge_pidisafe	SoftEdge	SoftEdge						
+color	50		t2ia_color_grid	T2I-Adapter	T2I-Adapter						
+pidinet_sketch	51		t2ia_sketch_pidi	T2I-Adapter	T2I-Adapter						
+clip_vision	52		t2ia_style_clipvision	T2I-Adapter	T2I-Adapter						
+threshold	53		threshold								
+tile_colorfix	54		tile_colorfix	Tile	Tile						
+tile_colorfix+sharp	55		tile_colorfix+sharp	Tile	Tile						
+tile_resample	56		tile_resample	Tile	Tile						
+											

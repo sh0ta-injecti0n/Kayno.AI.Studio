@@ -1,0 +1,57 @@
+_key	label	managed_model	model_free	no_control_mode	resolution/label	resolution/minimum	resolution/maximum	resolution/value	slider_1	slider_2	slider_3	priority	tags/0	resolution	slider_1/label	slider_1/minimum	slider_1/maximum	slider_1/value	slider_1/step	slider_2/label	slider_2/minimum	slider_2/maximum	slider_2/value	slider_2/step	returns_image	accepts_mask	use_soft_projection_in_hr_fix	tags/1
+animal_openpose	animal_openpose	g_openpose_model	false	false	Resolution	64	2048	512	None	None	None	0	OpenPose															
+densepose	densepose (pruple bg & purple torso)	unknown	false	false	Resolution	64	2048	512	None	None	None	0	OpenPose															
+densepose_parula	densepose_parula (black bg & blue torso)	unknown	false	false	Resolution	64	2048	512	None	None	None	0	OpenPose															
+depth_anything	depth_anything	model_depth_anything	false	false					None	None	None	0	Depth	None														
+depth_anything_v2	depth_anything_v2	model_depth_anything_v2	false	false					None	None	None	0	Depth	None														
+depth_hand_refiner	depth_hand_refiner	g_hand_refiner_model	false	false	Resolution	64	2048	512	None	None	None	0	Depth															
+depth_leres	depth_leres	model_leres	false	false	Resolution	64	2048	512			None	0	Depth		Remove Near %	0	100	0	0.1	Remove Background %	0	100	0	0.1				
+depth_leres++	depth_leres++	model_leres	false	false	Resolution	64	2048	512			None	0	Depth		Remove Near %	0	100	0	0.1	Remove Background %	0	100	0	0.1				
+depth	depth_midas	model_midas	false	false	Resolution	64	2048	512	None	None	None	100	Depth															
+depth_zoe	depth_zoe	model_zoe_depth	false	false					None	None	None	0	Depth	None														
+dw_openpose_full	dw_openpose_full	g_openpose_model	false	false	Resolution	64	2048	512	None	None	None	0	OpenPose															
+instant_id_face_embedding	instant_id_face_embedding	None	false	false					None	None	None	0	Instant-ID	None											false			
+instant_id_face_keypoints	instant_id_face_keypoints	None	false	false					None	None	None	0	Instant-ID	None														
+ip-adapter_clip_sd15	ip-adapter_clip_h	unknown	false	true					None	None	None	100	IP-Adapter	None											false	true		
+ip-adapter_clip_sdxl	ip-adapter_clip_g	unknown	false	true					None	None	None	0	IP-Adapter	None											false	true		
+ip-adapter_clip_sdxl_plus_vith	ip-adapter_clip_sdxl_plus_vith	unknown	false	true					None	None	None	0	IP-Adapter	None											false	true		
+ip-adapter_face_id	ip-adapter_face_id	None	false	true					None	None	None	0	IP-Adapter	None											false			
+ip-adapter_face_id_plus	ip-adapter_face_id_plus	unknown	false	true					None	None	None	0	IP-Adapter	None											false			
+lineart_anime	lineart_anime	model_lineart_anime	false	false					None	None	None	0	Lineart	None														
+lineart_anime_denoise	lineart_anime_denoise	model_manga_line	false	false					None	None	None	0	Lineart	None														
+lineart_coarse	lineart_coarse	model_lineart_coarse	false	false					None	None	None	0	Lineart	None														
+lineart	lineart_realistic	model_lineart	false	false					None	None	None	0	Lineart	None														
+lineart_standard	lineart_standard (from white bg & black line)	None	false	false					None	None	None	100	Lineart	None														
+mediapipe_face	mediapipe_face	None	false	false	Resolution	64	2048	512			None	0			Max Faces	1	10	1	1	Min Face Confidence	0.01	1	0.5	0.01				
+mlsd	mlsd	model_mlsd	false	false	Resolution	64	2048	512			None	100	MLSD		MLSD Value Threshold	0.01	2	0.1	0.01	MLSD Distance Threshold	0.01	20	0.1	0.01			true	
+normal_bae	normal_bae	model_normal_bae	false	false					None	None	None	100	NormalMap	None														
+normal_map	normal_midas	model_midas	false	false	Resolution	64	2048	512		None	None	0	NormalMap		Normal Background Threshold	0	1	0.4	0.01									
+openpose	openpose	g_openpose_model	false	false	Resolution	64	2048	512	None	None	None	0	OpenPose															
+openpose_face	openpose_face	g_openpose_model	false	false					None	None	None	0	OpenPose	None														
+openpose_faceonly	openpose_faceonly	g_openpose_model	false	false					None	None	None	0	OpenPose	None														
+openpose_full	openpose_full	g_openpose_model	false	false	Resolution	64	2048	512	None	None	None	100	OpenPose															
+openpose_hand	openpose_hand	g_openpose_model	false	false					None	None	None	0	OpenPose	None														
+recolor_intensity	recolor_intensity	None	false	false						None	None	0	Recolor	None	Gamma Correction	0.1	2	1	0.001									
+recolor_luminance	recolor_luminance	None	false	false						None	None	100	Recolor	None	Gamma Correction	0.1	2	1	0.001									
+reference_adain	reference_adain	None	true	false						None	None	0	Reference	None	Style Fidelity (only for Balanced mode)	0	1	0.5	0.01									
+reference_adain+attn	reference_adain+attn	None	true	false						None	None	0	Reference	None	Style Fidelity (only for Balanced mode)	0	1	0.5	0.01									
+reference_only	reference_only	None	true	false						None	None	100	Reference	None	Style Fidelity (only for Balanced mode)	0	1	0.5	0.01									
+revision_clipvision	revision_clipvision	None	true	true						None	None	100	Revision	None	Noise Augmentation	0	1	0							false			
+revision_ignore_prompt	revision_ignore_prompt	None	true	true						None	None	0	Revision	None	Noise Augmentation	0	1	0							false			
+scribble_hed	scribble_hed	model_hed	false	false	Resolution	64	2048	512	None	None	None	0	Scribble															SparseCtrl
+pidinet_scribble	scribble_pidinet	None	false	false					None	None	None	100	Scribble	None														SparseCtrl
+anime_face_segment	seg_anime_face	model_anime_face_segment	false	false	Resolution	64	2048	512	None	None	None	0	Segmentation															
+oneformer_ade20k	seg_ofade20k	model_oneformer_ade20k	false	false					None	None	None	100	Segmentation	None														
+oneformer_coco	seg_ofcoco	model_oneformer_coco	false	false					None	None	None	0	Segmentation	None														
+segmentation	seg_ufade20k	model_uniformer	false	false	Resolution	64	2048	512	None	None	None	0	Segmentation															
+hed	softedge_hed	model_hed	false	false	Resolution	64	2048	512	None	None	None	0	SoftEdge															
+hed_safe	softedge_hedsafe	model_hed	false	false	Resolution	64	2048	512	None	None	None	0	SoftEdge															
+pidinet	softedge_pidinet	model_pidinet	false	false					None	None	None	100	SoftEdge	None														
+pidinet_safe	softedge_pidisafe	model_pidinet	false	false					None	None	None	0	SoftEdge	None														
+color	t2ia_color_grid	None	false	false	Resolution	64	2048	512	None	None	None	0	T2I-Adapter															
+pidinet_sketch	t2ia_sketch_pidi	model_pidinet	false	false					None	None	None	0	T2I-Adapter	None														
+clip_vision	t2ia_style_clipvision	unknown	false	true					None	None	None	0	T2I-Adapter	None											false			
+threshold	threshold	None	false	false	Resolution	64	2048	512		None	None	0			Binarization Threshold	0	255	127										
+tile_colorfix	tile_colorfix	None	false	false						None	None	0	Tile	None	Variation	3	32	8	1									
+tile_colorfix+sharp	tile_colorfix+sharp	None	false	false							None	0	Tile	None	Variation	3	32	8	1	Sharpness	0	2	1	0.01				
+tile_resample	tile_resample	None	false	false						None	None	100	Tile	None	Down Sampling Rate	1	8	1	0.01									

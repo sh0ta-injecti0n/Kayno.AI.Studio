@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Kayno.AI.Studio.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Main_PrefPayload_ItemsSourcePrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ItemsSource_-_</Value>
+    </Setting>
+    <Setting Name="Main_PrefPayload_DataGlobal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\DataGlobal\</Value>
+    </Setting>
+    <Setting Name="Main_PrefPayload_Data" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\Data\</Value>
+    </Setting>
+    <Setting Name="Main_PrefPayload_FileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Payload.tsv</Value>
+    </Setting>
+    <Setting Name="ScreenCaptureRectX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ScreenCaptureRectY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ScreenCaptureRectWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">512</Value>
+    </Setting>
+    <Setting Name="ScreenCaptureRectHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">512</Value>
+    </Setting>
+    <Setting Name="Main_Path_SDModelFolderFilters" Type="System.String" Scope="User">
+      <Value Profile="(Default)">models\stable-diffusion,models\VAE,models\lora,models\controlnet,embeddings</Value>
+    </Setting>
+    <Setting Name="Main_Path_SD_CN_Preprocessors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\extensions\sd-webui-controlnet\scripts\preprocessor</Value>
+    </Setting>
+    <Setting Name="App_UseSelectedTextGradientColor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Main_Path_SD" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
