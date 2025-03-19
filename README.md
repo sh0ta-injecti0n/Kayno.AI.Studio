@@ -1,5 +1,5 @@
 ﻿
-[日本語](./ReadMe.md) | [en-US](./ReadMe.en-US.md) |
+[日本語](./README.md) | [en-US](./README.en-US.md) |
 
 
 # Kayno.AI.Studio (カイノ) とは？

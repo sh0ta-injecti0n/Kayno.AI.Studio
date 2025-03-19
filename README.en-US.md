@@ -1,4 +1,4 @@
-﻿[Japanese](./ReadMe.md) | [en-US](./ReadMe.en-US.md) |
+﻿[Japanese](./README.md) | [en-US](./README.en-US.md) |
 
 # What is Kayno.AI.Studio?
 
