@@ -206,11 +206,11 @@ namespace Kayno.AI.Studio
 
         private async void CMD_Settings_Executed( object sender, ExecutedRoutedEventArgs e )
 		{
-            string path = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.PerUserRoamingAndLocal ).FilePath;
-
-            //string path = Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData );
+			//string path = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.PerUserRoamingAndLocal ).FilePath;
+			//string path = Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData );
 			//path = Path.Combine( path, "Kayno.AI.Studio" );
 
+			var path = AppSettings.SettingsFilePath;
             Process.Start( @"explorer.exe", path );
 		}
 

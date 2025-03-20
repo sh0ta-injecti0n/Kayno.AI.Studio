@@ -40,10 +40,10 @@ namespace Kayno.AI.Studio
 					// ScreenCapture 関連
 
 					var _wind = new GraphicsScreenCaptureRectWindow();
-					_wind.Left	= Pref.Default.ScreenCaptureRectX;
-					_wind.Top	= Pref.Default.ScreenCaptureRectY;
-					_wind.Width	= Pref.Default.ScreenCaptureRectWidth;
-					_wind.Height= Pref.Default.ScreenCaptureRectHeight;
+					_wind.Left	= AppSettings.Instance.Pref_ScreenCaptureRectX;
+					_wind.Top	= AppSettings.Instance.Pref_ScreenCaptureRectY;
+					_wind.Width	= AppSettings.Instance.Pref_ScreenCaptureRectWidth;
+					_wind.Height= AppSettings.Instance.Pref_ScreenCaptureRectHeight;
 
 					var isResize = CurrentPayloadCollection.First( i => i.PropertyName == "res_autofit" ).PropertyValue;
 					if ( isResize is true )
@@ -56,15 +56,15 @@ namespace Kayno.AI.Studio
 					var res = _wind.ShowDialog();
 					if (res == true)
 					{ 
-						//config.AppSettings.Settings[ nameof( Pref.Default.ScreenCaptureRectX ) ].Value = _wind.RectCaptureResult.X.ToString();
-						//config.AppSettings.Settings[ nameof( Pref.Default.ScreenCaptureRectY ) ].Value = _wind.RectCaptureResult.Y.ToString();
-						//config.AppSettings.Settings[ nameof( Pref.Default.ScreenCaptureRectWidth ) ].Value = _wind.RectCaptureResult.Width.ToString();
-						//config.AppSettings.Settings[ nameof( Pref.Default.ScreenCaptureRectHeight ) ].Value = _wind.RectCaptureResult.Height.ToString();
+						//config.AppSettings.Settings[ nameof( AppSettings.Instance.Pref_ScreenCaptureRectX ) ].Value = _wind.RectCaptureResult.X.ToString();
+						//config.AppSettings.Settings[ nameof( AppSettings.Instance.Pref_ScreenCaptureRectY ) ].Value = _wind.RectCaptureResult.Y.ToString();
+						//config.AppSettings.Settings[ nameof( AppSettings.Instance.Pref_ScreenCaptureRectWidth ) ].Value = _wind.RectCaptureResult.Width.ToString();
+						//config.AppSettings.Settings[ nameof( AppSettings.Instance.Pref_ScreenCaptureRectHeight ) ].Value = _wind.RectCaptureResult.Height.ToString();
 
-                        Pref.Default.ScreenCaptureRectX = _wind.RectCaptureResult.X;
-						Pref.Default.ScreenCaptureRectY = _wind.RectCaptureResult.Y;
-						Pref.Default.ScreenCaptureRectWidth = _wind.RectCaptureResult.Width;
-						Pref.Default.ScreenCaptureRectHeight = _wind.RectCaptureResult.Height;
+                        AppSettings.Instance.Pref_ScreenCaptureRectX = _wind.RectCaptureResult.X;
+						AppSettings.Instance.Pref_ScreenCaptureRectY = _wind.RectCaptureResult.Y;
+						AppSettings.Instance.Pref_ScreenCaptureRectWidth = _wind.RectCaptureResult.Width;
+						AppSettings.Instance.Pref_ScreenCaptureRectHeight = _wind.RectCaptureResult.Height;
 					}
 
 					releaseMouseEx();
@@ -145,10 +145,10 @@ namespace Kayno.AI.Studio
 				else
 				{
 
-					var rectX = (int)Pref.Default.ScreenCaptureRectX;
-					var rectY = (int)Pref.Default.ScreenCaptureRectY;
-					var rectW = (int)Pref.Default.ScreenCaptureRectWidth;
-					var rectH = (int)Pref.Default.ScreenCaptureRectHeight;
+					var rectX = (int)AppSettings.Instance.Pref_ScreenCaptureRectX;
+					var rectY = (int)AppSettings.Instance.Pref_ScreenCaptureRectY;
+					var rectW = (int)AppSettings.Instance.Pref_ScreenCaptureRectWidth;
+					var rectH = (int)AppSettings.Instance.Pref_ScreenCaptureRectHeight;
 					if ( rectW < 2 || rectH < 2 )
 					{
 						return null;

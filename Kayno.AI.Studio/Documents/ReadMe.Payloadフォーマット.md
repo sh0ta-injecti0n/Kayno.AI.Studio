@@ -47,8 +47,9 @@ ChromeでXPathを取ったあと、デバッグボタンを押すとテキスト
 
 ### 場所:
 アプリの設定:  
-`%LocalAppdata%\Kayno.AI.Studio\Kayno~~(長い文字)\(番号)\user.config` 
-※デバッグ時はexeと同じフォルダ
+~~%LocalAppdata%\Kayno.AI.Studio\Kayno...(長い文字)\(番号)\user.config~~  
+→**アプリと同じ場所**。  
+⚠ 設定ボタンでのOpenは保存後可能。初回起動時は不可  
 
 生成用パラメーター(ペイロード):  
 `(アプリのexeがあるフォルダ)\Data\(プリセットスロット番号)\Payload.tsv`

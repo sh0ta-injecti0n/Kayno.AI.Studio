@@ -12,7 +12,7 @@ namespace Kayno.AI.Studio
 
 		public App()
 		{
-			if ( Pref.Default.App_UseSelectedTextGradientColor )
+			if ( AppSettings.Instance.Pref_App_UseSelectedTextGradientColor )
 			{
 				AppContext.SetSwitch("Switch.System.Windows.Controls.Text.UseAdornerForTextboxSelectionRendering", false);
 				// for TextBox "SelectionTextBrush" Property

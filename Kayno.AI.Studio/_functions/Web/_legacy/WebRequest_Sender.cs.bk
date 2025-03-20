@@ -5,10 +5,10 @@ namespace Kayno.AI.Studio
 	public partial class MainWindow : Window
 	{
 
-		string SDWebUI_BaseURL = Pref.Default.SDWebUI_BaseURL;
-		string SDWebUI_BaseURL_API= Pref.Default.SDWebUI_BaseURL_API;
-		string SDWebUI_BaseURL_Option = Pref.Default.SDWebUI_BaseURL_Option;
-		string SDWebUI_BaseURL_Models = Pref.Default.SDWebUI_BaseURL_Models;
+		string SDWebUI_BaseURL = AppSettings.Instance.Pref_SDWebUI_BaseURL;
+		string SDWebUI_BaseURL_API= AppSettings.Instance.Pref_SDWebUI_BaseURL_API;
+		string SDWebUI_BaseURL_Option = AppSettings.Instance.Pref_SDWebUI_BaseURL_Option;
+		string SDWebUI_BaseURL_Models = AppSettings.Instance.Pref_SDWebUI_BaseURL_Models;
 
 
 		public ObservableCollection<Data_SDModel> DataSDModels
@@ -284,7 +284,7 @@ namespace Kayno.AI.Studio
 		//	data.sd_model_checkpoint = DataSDModels//[comboBox_models.SelectedIndex].model_name;
 		//	data.CLIP_stop_at_last_layers = 1;
 		//
-		//	Debug.WriteLine(Pref.Default.Data_SDOption_ModelLastUsed);
+		//	Debug.WriteLine(AppSettings.Instance.Pref_Data_SDOption_ModelLastUsed);
 		//	var json = JsonSerializer.Serialize(data);
 		//
 		//	// 実際は保存してある json から読み出すこと 

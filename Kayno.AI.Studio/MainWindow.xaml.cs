@@ -20,7 +20,7 @@ global using System.Threading.Tasks;
 global using Microsoft.Win32;
 
 global using DRAW = System.Drawing;
-global using Pref = Kayno.AI.Studio.Properties.Settings;
+//global using Pref = Kayno.AI.Studio.Properties.Settings;
 global using PropRes = Kayno.AI.Studio.Properties.Resources;
 
 using OpenQA.Selenium;
@@ -28,6 +28,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows.Data;
 using System.Configuration;
+using System.Security.Policy;
 
 namespace Kayno.AI.Studio
 {
@@ -45,28 +46,39 @@ namespace Kayno.AI.Studio
             InitializeCommandBindings();
 			Loaded += MainWindow_Loaded;
 			Closing += MainWindow_Closing;
+
+            //appSettings = appSettings.Load();
+            //appSettings.ApplyToWindow(this);
+            //this.LoadWindowSettings();
+            AppSettings.Instance.ApplyToWindow(this);
+            // 1st
+
+
+			LoadPreferences();
+			// 2nd
 		}
 
 		private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-            this.LoadWindowSettings();  // 拡張メソッドで設定を読み込み
-            await LoadPreferences();
+			await LoadPayload();
+			// 3rd
+			// 先に読み込むこと
+
+			if (payloads_All != null && payloads_All.Any())
+			{
+				var url = payloads_All.First(i => i.PropertyName.Contains("url")).PropertyValue.ToString();
+				webSenderSelenium1.InitWebData(url);
+			}
+			// SDWebUIを先に開いておく
+
+			TogglePinPane(false);
 		}
 
 		protected override async void OnContentRendered(EventArgs e)
 		{
-            await LoadPayload();
-            // 先に読み込むこと
-            TogglePinPane( false );
-            var url = payloads_All.First( i => i.PropertyName.Contains( "url" ) ).PropertyValue.ToString();
-            webSenderSelenium1.InitWebData( url );
-			// SDWebUIを先に開いておく
-
-            await InitScreenCapture();
-
-            base.OnContentRendered( e );
+			await InitScreenCapture();
+			base.OnContentRendered( e );
 		}
-
 
 		private async void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -74,13 +86,15 @@ namespace Kayno.AI.Studio
 			webSenderSelenium1.QuitSelenium();
 
 			SavePayload();
-			this.SaveWindowSettings();  // 拡張メソッドで設定を保存
-			await SavePreferences();
+            //appSettings.UpdateFromWindow(this);
+            //appSettings.Save();
+            //this.SaveWindowSettings();  // 拡張メソッドで設定を保存
+            //await SavePreferences();
+            AppSettings.Instance.UpdateFromWindow(this);
+            AppSettings.Instance.Save();
 		}
 
         #region ## Application Preferences
-
-        Configuration config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
 
         /// <summary>
         /// stable-diffusion > models のフォルダ。
@@ -89,7 +103,7 @@ namespace Kayno.AI.Studio
         {
             get
             {
-                return Path.Combine( Pref.Default.Main_Path_SD, "models" );
+                return Path.Combine( AppSettings.Instance.Pref_Main_Path_SD, "models" );
             }
         }
 
@@ -100,7 +114,7 @@ namespace Kayno.AI.Studio
         {
             get
             {
-                return Path.Combine( Pref.Default.Main_Path_SD, "embeddings" );
+                return Path.Combine( AppSettings.Instance.Pref_Main_Path_SD, "embeddings" );
             }
         }
 
@@ -111,17 +125,17 @@ namespace Kayno.AI.Studio
         {
             get
             {
-                return Path.Combine( Pref.Default.Main_Path_SD, "outputs" );
+                return Path.Combine( AppSettings.Instance.Pref_Main_Path_SD, "outputs" );
             }
         }
 
 
-        private async Task LoadPreferences()
+        private void LoadPreferences()
         {
             // 設定ファイルを読み込む
 
-            if ( string.IsNullOrEmpty( Pref.Default.Main_Path_SD )
-                || !Directory.Exists( Pref.Default.Main_Path_SD ) )
+            if ( string.IsNullOrEmpty( AppSettings.Instance.Pref_Main_Path_SD )
+                || !Directory.Exists( AppSettings.Instance.Pref_Main_Path_SD ) )
             {
                 var msg = Properties.Resources.Dialog_InitialLaunch;
                 MessageBox.Show( msg );
@@ -131,8 +145,8 @@ namespace Kayno.AI.Studio
                 var res = r.ShowDialog();
                 if ( res == false ) return;
 
-                //config.AppSettings.Settings[ nameof(Pref.Default.Main_Path_SD) ].Value = r.FolderName;
-                Pref.Default.Main_Path_SD = r.FolderName;
+                //config.AppSettings.Settings[ nameof(AppSettings.Instance.Pref_Main_Path_SD) ].Value = r.FolderName;
+                AppSettings.Instance.Pref_Main_Path_SD = r.FolderName;
                 // app.configで管理する場合はconfigのほうを使う
             }
 

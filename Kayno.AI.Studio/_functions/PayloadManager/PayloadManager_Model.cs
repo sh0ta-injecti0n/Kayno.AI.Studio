@@ -52,13 +52,13 @@ namespace Kayno.AI.Studio
 
                 var parentDir = Path.GetDirectoryName( filePath );
 				var parnetDirName = new DirectoryInfo( parentDir ).Name;
-                var pathParts = parentDir.Substring( Pref.Default.Main_Path_SD.Length ).Split( Path.DirectorySeparatorChar );
+                var pathParts = parentDir.Substring( AppSettings.Instance.Pref_Main_Path_SD.Length ).Split( Path.DirectorySeparatorChar );
                 var nextFolderName = pathParts.Length > 0 ? pathParts[ 0 ] : parnetDirName;
 				// SDパスの次の階層のフォルダ
 
                 var fileName = Path.GetFileName( filePath );
 				//var parentDir = Path.GetDirectoryName( filePath );
-				var relativePath = parentDir != null ? Path.GetRelativePath( Pref.Default.Main_Path_SD, parentDir ) : string.Empty;
+				var relativePath = parentDir != null ? Path.GetRelativePath( AppSettings.Instance.Pref_Main_Path_SD, parentDir ) : string.Empty;
 				var category1 = nextFolderName;
 				// e.g. models, embeddings
 				var category2 = parnetDirName;
@@ -86,18 +86,18 @@ namespace Kayno.AI.Studio
 				payloadTemplates.Add( payloadTemplate );
 			}
 
-			var dataGlobal = Pref.Default.Main_PrefPayload_DataGlobal;
+			var dataGlobal = AppSettings.Instance.Pref_Main_PrefPayload_DataGlobal;
 			dataGlobal = Path.GetFullPath( dataGlobal );
 			var modelTsvPath = Path.Combine(dataGlobal, "models.tsv");
 
 			TsvSerializer.SaveToTsv<PayloadTemplate>( modelTsvPath, payloadTemplates );
 			// デバッグ・確認用
 
-			var filters = Pref.Default.Main_Path_SDModelFolderFilters.ToLower().Split( "," );
+			var filters = AppSettings.Instance.Pref_Main_Path_SDModelFolderFilters.ToLower().Split( "," );
 			foreach (var filter in filters )
 			{
 				var path = filter.Replace(" ", "").Replace( "\\", "_" );
-				var savepath = Path.Combine( dataGlobal, $"{Pref.Default.Main_PrefPayload_ItemsSourcePrefix}{path}.tsv");
+				var savepath = Path.Combine( dataGlobal, $"{AppSettings.Instance.Pref_Main_PrefPayload_ItemsSourcePrefix}{path}.tsv");
 				// Paylaodのコレクションより先に初期化されるのでPayloadからは読めないので注意
 
 				var ls = payloadTemplates.Where( i => i.TParentDir.ToLower().Contains( filter ) ).ToList();
@@ -134,7 +134,7 @@ namespace Kayno.AI.Studio
 		/// </summary>
 		public void ResetPromptSourceFiles()
 		{
-            var sdpath = Pref.Default.Main_Path_SD;
+            var sdpath = AppSettings.Instance.Pref_Main_Path_SD;
             var yamlDir = @"extensions\sd-webui-prompt-all-in-one\group_tags\";
 			var yamlfile = CultureInfo.CurrentUICulture.Name.Replace( "-", "_" ) + @".yaml";
             var filepath = Path.Combine( sdpath, yamlDir, yamlfile );

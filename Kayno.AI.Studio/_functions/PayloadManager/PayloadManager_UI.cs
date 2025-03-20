@@ -20,7 +20,7 @@ namespace Kayno.AI.Studio
 		{
 			get
 			{
-				return Path.GetFullPath( Pref.Default.Main_PrefPayload_Data );
+				return Path.GetFullPath( AppSettings.Instance.Pref_Main_PrefPayload_Data );
             }
 		}
 
@@ -28,7 +28,7 @@ namespace Kayno.AI.Studio
 		{
 			get
 			{
-				return Path.GetFullPath( Pref.Default.Main_PrefPayload_DataGlobal );
+				return Path.GetFullPath( AppSettings.Instance.Pref_Main_PrefPayload_DataGlobal );
             }
         }
 
@@ -42,7 +42,7 @@ namespace Kayno.AI.Studio
 		{
 			get
 			{
-				var path = Path.Combine( CurrentPayloadDir, Pref.Default.Main_PrefPayload_FileName );
+				var path = Path.Combine( CurrentPayloadDir, AppSettings.Instance.Pref_Main_PrefPayload_FileName );
 				return path;
 			}
 		}
@@ -87,16 +87,23 @@ namespace Kayno.AI.Studio
 		/// </summary>
 		public async Task LoadPayload()
 		{
+			ResetModelSourceFiles();
+			ResetPromptSourceFiles();
+			//先にこの2つを await なしで読み込むこと。非同期でComboBoxが空のまま読まれることを防止
+
 			await Task.Run
 			( 
 				() =>
 				{
-					CurrentPayloadCollection = new ObservableCollection<Payload>();
-			
-					ResetModelSourceFiles();
-					ResetPromptSourceFiles();
-					CurrentPayloadCollection = TsvSerializer.LoadFromTsv<Payload>( CurrentPayloadPath );
+					
+					var loadedPayloads = TsvSerializer.LoadFromTsv<Payload>(CurrentPayloadPath);
+					CurrentPayloadCollection = new ObservableCollection<Payload>(loadedPayloads);
 
+					//CurrentPayloadCollection = new ObservableCollection<Payload>();
+					//
+					//ResetModelSourceFiles();
+					//ResetPromptSourceFiles();
+					//CurrentPayloadCollection = TsvSerializer.LoadFromTsv<Payload>( CurrentPayloadPath );
 				}
 			);
 			
