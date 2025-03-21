@@ -5,6 +5,8 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -331,215 +333,16 @@ namespace Kayno.AI.Studio
                     };
 
 
-                    #region ## For Prompts
+                    #region ## For PromptHelper
                     if (payload.PropertyName.Contains("prompt"))
 					{
-                        var tb_popup = new Popup();
-                        tb_popup.Placement = PlacementMode.Bottom;
-                        tb_popup.IsOpen = false;
-                        tb_popup.StaysOpen = false;
-						tb_popup.AllowsTransparency = true;
-
-						var tb_popup_pane = new ListView();
-						tb_popup_pane.Style = FindResource("ListView1") as Style;
-						tb_popup_pane.Background = FindResource( "GradientControl" ) as LinearGradientBrush;
-						tb_popup_pane.ItemContainerStyle = FindResource( "ListCommonItem1" ) as Style;
-						tb_popup_pane.DataContext = payload.UI_ItemsSource;
-                        tb_popup_pane.ItemsSource = payload.UI_ItemsSource;
-                        //var PayloadTemplates = (ObservableCollection<PayloadTemplate>)DataContext;
-						tb_popup_pane.Width = 368;
-						tb_popup_pane.Height = 428;
+						AttachPromptTextBox(payload, control, control_tb);
+					}
 
 
-						string keyword = "";
-						int LastCaretIndex = -1;
-						int LastCount = 0;
-						var SendAutoComplete = new Action<RoutedEventArgs>( (RoutedEventArgs e) =>  
-						{
-							var item = tb_popup_pane.SelectedItem as PayloadTemplate;
-							item = item ?? tb_popup_pane.Items[0] as PayloadTemplate;
-							if (item != null)
-							{
-								var val = item.TPropertyValue as string;
-								control_tb.Select(LastCaretIndex, LastCount);
-								control_tb.SelectedText = val;
-							}
-							LastCaretIndex = -1;
-							LastCount = 0;
-							keyword = "";
-							tb_popup_pane.SelectedIndex = -1;
-							tb_popup.IsOpen = false;
-							control_tb.Focus();
-							e.Handled = true;
-							return;
-						});
+					#endregion
 
-                        control_tb.PreviewKeyDown += ( s, e ) =>
-						{
-							//var control_tb = (TextBox)s;
-							//var selected = textbox.SelectedText;
-							//if ( string.IsNullOrEmpty( selected ) ) return;
-
-                            if ( Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl ) )
-                            {
-                                // 上矢印キーまたは下矢印キーが押されたかチェック
-                                if ( e.Key == Key.Up || e.Key == Key.Down )
-                                {
-                                    ReplaceKeywordWithUpdatedValue( control_tb, e.Key == Key.Up );
-                                    e.Handled = true;  // イベントの伝播を止める
-									return;
-                                }
-								// Ctrl+↓↑によるWeight調整
-                               
-                            }
-
-                            if ( e.Key == Key.OemComma || e.Key == Key.Space || e.Key == Key.Enter || e.Key == Key.Escape )
-                            {
-                                LastCaretIndex = -1;
-                                LastCount = 0;
-                                keyword = "";
-                                tb_popup.IsOpen = false;
-                                return;
-                            }
-
-                            if ( e.Key == Key.Back || e.Key == Key.Delete )
-                            {
-                                LastCount -= 1;
-                                if ( LastCount < 1 )
-                                {
-                                    LastCaretIndex = -1;
-                                    LastCount = 0;
-                                    keyword = "";
-                                    tb_popup.IsOpen = false;
-                                }
-                            }
-
-                            if (tb_popup.IsOpen)
-							{
-								if ( e.Key == Key.Tab )
-								{
-									SendAutoComplete(e);
-									e.Handled = true;
-									return;
-                                    //var item = tb_popup_pane.SelectedItem as PayloadTemplate;
-                                    //item = item ?? tb_popup_pane.Items[ 0 ] as PayloadTemplate;
-                                    //if ( item != null )
-                                    //{
-                                    //    var val = item.TPropertyValue as string;
-									//	control_tb.Select( LastCaretIndex, LastCount );
-                                    //    control_tb.SelectedText = val;
-                                    //}
-                                    //e.Handled = true;
-                                    //LastCaretIndex = -1;
-                                    //LastCount = 0;
-                                    //keyword = "";
-                                    //tb_popup.IsOpen = false;
-									//return;
-                                }
-                                
-								if ( e.Key == Key.Up || e.Key == Key.Down )
-                                {
-									tb_popup_pane.Focus();
-									//tb_popup_pane.SelectedIndex = e.Key == Key.Up 
-									//? 
-									//tb_popup_pane.SelectedIndex - 1
-									//:
-									//tb_popup_pane.SelectedIndex + 1;
-                                    e.Handled = true;  // イベントの伝播を止める
-									return;
-									// 候補表示を選択する。textboxのキャレット移動をキャンセル
-                                }
-                            }
-
-                            // Ctrl+↑↓は標準の操作とかぶるので、Previewのほうを使ってe.Handled=trueで動作を上書き
-                            // BackspaceやスペースなどはKeyDownでは取れない。
-                            // Previewを使う。
-                        };
-
-						control_tb.KeyUp += ( s, e ) =>
-						{
-
-                            if (
-                            ( e.Key >= Key.A && e.Key <= Key.Z )
-                            || ( e.Key >= Key.D0 && e.Key <= Key.D9 )
-                            || ( e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 )
-                             )
-                            {
-                                if ( LastCaretIndex < 0 )
-                                {
-                                    LastCaretIndex = control_tb.CaretIndex-1;
-                                }
-
-                                LastCount += 1;
-                               
-
-                                // 候補表示
-                            }
-
-							if (LastCount > 0)
-							{
-                                try
-                                {
-                                    keyword = control_tb.Text.Substring( LastCaretIndex, LastCount );
-                                    Debug.WriteLine( keyword );
-
-                                    var items =
-                                    payload.UI_ItemsSource.Where
-                                    (
-                                        i =>
-                                        i.TPropertyValue.ToString().ToLower().Contains( keyword )
-                                    //i.TLabel.ToLower().Contains( keyword )
-                                    //|| i.TCategory.Contains( keyword )
-                                    //|| i.TCategory2.Contains( keyword )
-                                    //|| i.TTags.ToString().Contains( keyword )
-
-                                    ).ToList();
-
-                                    //tb_popup_pane.DataContext = items;
-                                    tb_popup_pane.ItemsSource = items ?? new List<PayloadTemplate>();
-
-                                    tb_popup.IsOpen = true;
-                                }
-                                catch (Exception ex)
-                                {
-									Debug.WriteLine( ex.Message.ToString() );
-                                }
-								// ⚠ タイピングが早すぎるとダメなときがある
-                            }
-                        };
-
-						tb_popup_pane.PreviewKeyDown += (s, e) =>
-						{
-							if (tb_popup.IsOpen)
-							{
-								if (e.Key == Key.Enter || e.Key == Key.Tab)
-								{
-									SendAutoComplete(e);
-									return;
-								}
-							}
-							
-						};
-
-						tb_popup_pane.PreviewMouseLeftButtonUp += (s, e) =>
-						{
-							if (tb_popup.IsOpen && tb_popup_pane.SelectedIndex > -1)
-							{
-								SendAutoComplete(e);
-								return;
-							}
-							// Up... DownだとまだSelectedがNull
-						};
-
-						tb_popup.Child = tb_popup_pane;
-                        ( (Grid)control ).Children.Add( tb_popup );
-
-                    }
-
-
-                    #endregion
-
-                    break;
+					break;
 
 				case UISelector.Slider:
 					control = new Slider
@@ -715,11 +518,468 @@ namespace Kayno.AI.Studio
 			return control;
 		}
 
+		private void AttachPromptTextBox(Payload payload, UIElement control, TextBox control_tb)
+		{
+			var tb_popup = new Popup();
+			tb_popup.Placement = PlacementMode.Bottom;
+			tb_popup.IsOpen = false;
+			tb_popup.StaysOpen = false;
+			tb_popup.AllowsTransparency = true;
 
-        #region ## プロンプトの{~:1.1}のやつ: Weight Controller
-        // 選択中のテキストの数値を増減させて更新するメソッド
-        private void ReplaceKeywordWithUpdatedValue(TextBox myTextBox, bool increase )
+			var tb_popup_pane = new ListView();
+			tb_popup_pane.Style = FindResource("ListView1") as Style;
+			tb_popup_pane.Background = FindResource("GradientControl") as LinearGradientBrush;
+			tb_popup_pane.ItemContainerStyle = FindResource("ListCommonItem1") as Style;
+			tb_popup_pane.DataContext = payload.UI_ItemsSource;
+			tb_popup_pane.ItemsSource = payload.UI_ItemsSource;
+			//var PayloadTemplates = (ObservableCollection<PayloadTemplate>)DataContext;
+			tb_popup_pane.Width = 368;
+			tb_popup_pane.Height = 428;
+
+
+			string keyword = "";
+			int LastCaretIndex = -1;
+			int LastCount = 0;
+			var ClosePane = new Action(() =>
+			{
+				LastCaretIndex = -1;
+				tb_popup_pane.SelectedIndex = -1;
+				tb_popup.IsOpen = false;
+			});
+
+
+			#region ## AutoComplete
+
+
+			var SendAutoComplete = new Action<RoutedEventArgs>((RoutedEventArgs e) =>
+			{
+				var item = tb_popup_pane.SelectedItem as PayloadTemplate;
+				item = item ?? tb_popup_pane.Items[0] as PayloadTemplate;
+				if (item != null)
+				{
+					var val = item.TPropertyValue as string;
+					control_tb.Select(LastCaretIndex, LastCount);
+					control_tb.SelectedText = val;
+				}
+				LastCaretIndex = -1;
+				LastCount = 0;
+				keyword = "";
+				tb_popup_pane.SelectedIndex = -1;
+				tb_popup.IsOpen = false;
+				control_tb.Focus();
+				e.Handled = true;
+				return;
+			});
+
+			control_tb.PreviewKeyDown += (s, e) =>
+			{
+				//var control_tb = (TextBox)s;
+				//var selected = textbox.SelectedText;
+				//if ( string.IsNullOrEmpty( selected ) ) return;
+
+				if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+				{
+					// 上矢印キーまたは下矢印キーが押されたかチェック
+					if (e.Key == Key.Up || e.Key == Key.Down)
+					{
+						//ReplaceKeywordWithUpdatedValue(control_tb, e.Key == Key.Up);
+						PromptWeightController(control_tb, e.Key == Key.Up);
+						e.Handled = true;  // イベントの伝播を止める
+						return;
+					}
+					// Ctrl+↓↑によるWeight調整
+
+				}
+
+				if (e.Key == Key.OemComma || e.Key == Key.Space || e.Key == Key.Enter || e.Key == Key.Escape)
+				{
+					LastCaretIndex = -1;
+					LastCount = 0;
+					keyword = "";
+					tb_popup.IsOpen = false;
+					return;
+				}
+
+				if (e.Key == Key.Back || e.Key == Key.Delete)
+				{
+					LastCount -= 1;
+					if (LastCount < 1)
+					{
+						LastCaretIndex = -1;
+						LastCount = 0;
+						keyword = "";
+						tb_popup.IsOpen = false;
+					}
+				}
+
+				if (tb_popup.IsOpen)
+				{
+					if (e.Key == Key.Escape)
+					{
+						LastCaretIndex = -1;
+						LastCount = 0;
+						keyword = "";
+						tb_popup.IsOpen = false;
+						e.Handled = true;
+						return;
+					}
+
+					if (e.Key == Key.Tab)
+					{
+						SendAutoComplete(e);
+						e.Handled = true;
+						return;
+						//var item = tb_popup_pane.SelectedItem as PayloadTemplate;
+						//item = item ?? tb_popup_pane.Items[ 0 ] as PayloadTemplate;
+						//if ( item != null )
+						//{
+						//    var val = item.TPropertyValue as string;
+						//	control_tb.Select( LastCaretIndex, LastCount );
+						//    control_tb.SelectedText = val;
+						//}
+						//e.Handled = true;
+						//LastCaretIndex = -1;
+						//LastCount = 0;
+						//keyword = "";
+						//tb_popup.IsOpen = false;
+						//return;
+					}
+
+					if (e.Key == Key.Up || e.Key == Key.Down)
+					{
+						tb_popup_pane.Focus();
+						//tb_popup_pane.SelectedIndex = e.Key == Key.Up 
+						//? 
+						//tb_popup_pane.SelectedIndex - 1
+						//:
+						//tb_popup_pane.SelectedIndex + 1;
+						e.Handled = true;  // イベントの伝播を止める
+						return;
+						// 候補表示を選択する。textboxのキャレット移動をキャンセル
+					}
+				}
+
+				// Ctrl+↑↓は標準の操作とかぶるので、Previewのほうを使ってe.Handled=trueで動作を上書き
+				// BackspaceやスペースなどはKeyDownでは取れない。
+				// Previewを使う。
+			};
+
+			control_tb.KeyUp += (s, e) =>
+			{
+				if (
+				(e.Key >= Key.A && e.Key <= Key.Z)
+				|| (e.Key >= Key.D0 && e.Key <= Key.D9)
+				|| (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+				 )
+				{
+					if (
+						Keyboard.IsKeyDown(Key.LeftCtrl)
+						|| Keyboard.IsKeyDown(Key.LeftAlt)
+						)
+					{
+						return;
+					}
+						if (LastCaretIndex < 0)
+					{
+						LastCaretIndex = control_tb.CaretIndex - 1;
+					}
+
+					LastCount += 1;
+
+
+					// 候補表示
+				}
+
+				if (LastCount > 0)
+				{
+					try
+					{
+						keyword = control_tb.Text.Substring(LastCaretIndex, LastCount);
+						Debug.WriteLine(keyword);
+
+						if (string.IsNullOrEmpty(keyword) || keyword.Equals(Environment.NewLine))
+						{
+							return;
+						}
+
+						var items =
+						payload.UI_ItemsSource.Where
+						(
+							i =>
+							i.TPropertyValue.ToString().ToLower().Contains(keyword)
+						//i.TLabel.ToLower().Contains( keyword )
+						//|| i.TCategory.Contains( keyword )
+						//|| i.TCategory2.Contains( keyword )
+						//|| i.TTags.ToString().Contains( keyword )
+
+						).ToList();
+
+						//tb_popup_pane.DataContext = items;
+						tb_popup_pane.ItemsSource = items ?? new List<PayloadTemplate>();
+
+						tb_popup.IsOpen = true;
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine(ex.Message.ToString());
+					}
+					// ⚠ タイピングが早すぎるとダメなときがある
+				}
+			};
+
+			tb_popup_pane.PreviewKeyDown += (s, e) =>
+			{
+				if (e.Key == Key.Escape) 
+				{ 
+					ClosePane();
+				}
+
+				if (tb_popup.IsOpen)
+				{
+					if (e.Key == Key.Enter || e.Key == Key.Tab)
+					{
+						SendAutoComplete(e);
+						return;
+					}
+				}
+
+			};
+
+			tb_popup_pane.PreviewMouseLeftButtonUp += (s, e) =>
+			{
+				if (tb_popup.IsOpen && tb_popup_pane.SelectedIndex > -1)
+				{
+					SendAutoComplete(e);
+					return;
+				}
+				// Up... DownだとまだSelectedがNull
+			};
+
+			#endregion
+
+			// AutoComplete ちょっと(やることが)重すぎて無効化
+
+			/*
+			
+			control_tb.PreviewTextInput += (s, e) =>
+			{
+				previousCaretIndex = control_tb.CaretIndex;
+			};
+
+			control_tb.TextChanged += (s, e) =>
+			{
+				
+				tb_popup.IsOpen = true;
+			};
+
+			tb_popup_pane.KeyDown += (s, e) =>
+			{
+				if (e.Key == Key.Escape)
+				{
+					ClosePane();
+
+					e.Handled = true;
+				}
+			};
+
+			tb_popup_pane.SelectionChanged += (s, e) =>
+			{
+				if (!tb_popup.IsOpen)
+				{
+					return;
+				}
+
+				if (tb_popup_pane != null)
+				{
+					if (tb_popup_pane.SelectedItem != null)
+					{
+						string selectedText = tb_popup_pane.SelectedItem.ToString();
+						int currentCaretIndex = control_tb.CaretIndex;
+						// 現在のカーソル位置を取得
+
+						// 置換範囲を計算
+						int startIndex = Math.Min(previousCaretIndex, currentCaretIndex);
+						int length = Math.Abs(previousCaretIndex - currentCaretIndex);
+
+						// テキストを置き換える
+						control_tb.Text = control_tb.Text.Substring(0, startIndex)
+						+ selectedText
+						+ control_tb.Text.Substring(startIndex + length);
+
+						control_tb.CaretIndex = startIndex + selectedText.Length;
+
+					}
+				}
+				ClosePane();
+			};
+
+
+			 */
+
+
+			//control_tb.PreviewKeyDown += (s, e) =>
+			//{
+			//	//var control_tb = (TextBox)s;
+			//	//var selected = textbox.SelectedText;
+			//	//if ( string.IsNullOrEmpty( selected ) ) return;
+			//
+			//	if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+			//	{
+			//		// 上矢印キーまたは下矢印キーが押されたかチェック
+			//		if (e.Key == Key.Up || e.Key == Key.Down)
+			//		{
+			//			//ReplaceKeywordWithUpdatedValue(control_tb, e.Key == Key.Up);
+			//			PromptWeightController(control_tb, e.Key == Key.Up);
+			//			e.Handled = true;  // イベントの伝播を止める
+			//			return;
+			//		}
+			//		// Ctrl+↓↑によるWeight調整
+			//
+			//	}
+			//
+			//
+			//};
+
+
+			tb_popup.Child = tb_popup_pane;
+			((Grid)control).Children.Add(tb_popup);
+		}
+
+
+		#region ## プロンプトの{~:1.1}のやつ: Weight Controller
+		private void PromptWeightController(TextBox textBox, bool IsIncreasing)
+		{
+			if (textBox == null) return;
+
+			int caretIndex = textBox.CaretIndex;
+			string text = textBox.Text;
+
+			// TextをコンマとBREAKで分割
+			string[] parts = SplitTextIntoParts(text);
+			// 1cat, your keywo|rd set, BREAK, test test, test...
+			// { "1cat", " {your keyword set:1.2}", " ", "", " test test", " test" ...  }
+
+			string extractedText = FindPartByCaretIndex(parts, text, caretIndex);
+			// CaretIndexが含まれる要素を特定
+			// , {your keywo|rd set: 1.2} BREAK
+			//  ^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+
+			extractedText = extractedText.Trim();
+
+			if (string.IsNullOrEmpty(extractedText)) return;
+
+			string keywordSet = ExtractText(extractedText);
+			// 空白を含むアルファベットのみを抽出
+			// your keyword set
+
+			var currentValue = ParseCurrentValue(extractedText);
+			// 既存の書式を解析して数字部分を取得
+			// 1.2 
+
+			// 数字の上げ下げ
+			var newValue = AdjustValue(currentValue, IsIncreasing);
+			// 1.2 -> 1.3 (or 1.1)
+
+			// {keyword_set:newValue}という書式にする
+			string result = $"{{{keywordSet}:{newValue}}}";
+			// {your keyword set:1.x}
+
+			textBox.Text = textBox.Text.Replace(extractedText, result);
+			textBox.CaretIndex = caretIndex;
+
+		}
+
+		private string[] SplitTextIntoParts(string text)
+		{
+			// コンマとBREAKで分割
+			string pattern = @",|BREAK";
+			return Regex.Split(text, pattern)
+			//.Select(part => part.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToArray()
+			;
+		}
+
+		private string FindPartByCaretIndex(string[] parts, string originalText, int caretIndex)
+		{
+			int currentIndex = 0;
+			foreach (string part in parts)
+			{
+				int partLength = part.Length;
+				if (caretIndex >= currentIndex && caretIndex <= currentIndex + partLength)
+				{
+					return part;
+				}
+
+				// 区切り文字の長さを考慮してcurrentIndexを更新
+				if (originalText.Substring(currentIndex + partLength).StartsWith(",") ||
+					originalText.Substring(currentIndex + partLength).StartsWith("BREAK"))
+				{
+					int delimiterLength = originalText.Substring(currentIndex + partLength).StartsWith("BREAK") ? 5 : 1;
+					currentIndex += partLength + delimiterLength;
+				}
+				else
+				{
+					currentIndex += partLength;
+				}
+				//currentIndex += partLength + 1; // 分割された部分の間にはコンマまたはBREAKがあるため+1
+			}
+			return string.Empty;
+		}
+
+
+		private string ExtractText(string text)
+		{
+			// {key:value}形式からkey部分を抽出
+			Match match = Regex.Match(text, @"(.*):");
+			if (match.Success)
+			{
+				// 抽出した文字列から英数字と空白のみをフィルタリング
+				return new string(match.Groups[1].Value.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray());
+			}
+			else
+			{
+				return text;
+			}
+
+			// {と:に囲まれた部分を抽出
+			//Match match = Regex.Match(text, @"\{(.*?):");
+			//if (match.Success)
+			//{
+			//	return match.Groups[1].Value;
+			//}
+			//else
+			//{
+			//	return text;
+			//}
+		}
+
+
+		private decimal ParseCurrentValue(string text)
+		{
+			// 既存の書式から数字部分を抽出
+			Match match = Regex.Match(text, @"{.*?:([\d.]+)}");
+			if (match.Success)
+			{
+				return decimal.Parse(match.Groups[1].Value);
+			}
+
+			// 既存の数字がなければデフォルト値を返す
+			return 1.0m;
+		}
+
+		private decimal AdjustValue(decimal currentValue, bool IsIncreasing)
+		{
+			// 0.1ずつ上げ下げ
+			return IsIncreasing ? currentValue + 0.1m :  currentValue - 0.1m;
+		}
+
+
+		// 選択中のテキストの数値を増減させて更新するメソッド
+		private void ReplaceKeywordWithUpdatedValue(TextBox myTextBox, bool increase )
         {
+			// 2025-03-20
+			// 改行のあと,がなかったり、正規的表現でないとNG
+
+
             int caretIndex = myTextBox.CaretIndex;
             string text = myTextBox.Text;
 
@@ -742,7 +1002,7 @@ namespace Kayno.AI.Studio
 
 
             // 任意の文字列（例えば"keyword"）でなくても、数値があれば処理
-            string pattern = @"(\w+\s*\S+):\s*(\d+(\.\d+)?)";  // 任意の文字列:数値の形式にマッチ
+            string pattern = @"(.*):\s*(\d+(\.\d+)?)";  // 任意の文字列:数値の形式にマッチ
             var match = Regex.Match( selectedText, pattern );
 
             if ( !match.Success )  // 数値の形式でなければ"任意の文字:1.0"の形式に変換
@@ -763,8 +1023,8 @@ namespace Kayno.AI.Studio
 
             }
 
+			selectedText = selectedText.Trim();
             selectedText = @"{" + selectedText + @"}";
-            selectedText = selectedText.Trim();
 
             Debug.WriteLine( selectedText );
 

@@ -6,31 +6,31 @@ namespace Kayno.AI.Studio
 	public partial class MainWindow : Window
 	{
 
-		private DispatcherTimer timerRender;
+		private DispatcherTimer dispatcherTimer;
 
 		private void InitScreenCaptureRenderTimer()
 		{
-			if ( timerRender != null )
+			if ( dispatcherTimer != null )
 			{
 				DisposeScreenCaptureTimer();
 			}
 
-			timerRender = new DispatcherTimer();
-			timerRender.Interval = TimeSpan.FromSeconds(3);
-			timerRender.Tick += DispatherScreenCaptureRenderTimer_Tick;
-			timerRender.Start();
+			dispatcherTimer = new DispatcherTimer();
+			dispatcherTimer.Interval = TimeSpan.FromSeconds(3);
+			dispatcherTimer.Tick += DispatherScreenCaptureRenderTimer_Tick;
+			dispatcherTimer.Start();
 
 		}
 
 		private void DisposeScreenCaptureTimer()
 		{
-			if (timerRender == null)
+			if (dispatcherTimer == null)
 			{
 				return;
 			}
-			timerRender.Stop();
-			timerRender.Tick -= DispatherScreenCaptureRenderTimer_Tick;
-			timerRender = null;
+			dispatcherTimer.Stop();
+			dispatcherTimer.Tick -= DispatherScreenCaptureRenderTimer_Tick;
+			dispatcherTimer = null;
 		}
 
 		private void DispatherScreenCaptureRenderTimer_Tick(object? sender, EventArgs e)

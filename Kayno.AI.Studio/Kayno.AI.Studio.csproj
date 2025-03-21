@@ -204,7 +204,6 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if exist &quot;$(OutDir)&quot; rmdir /s /q &quot;$(OutDir)&quot;&#xD;&#xA;mkdir &quot;$(OutDir)&quot;" />
   </Target>
 
 </Project>

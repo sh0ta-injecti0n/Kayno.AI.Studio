@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using System.Configuration;
+using System.Windows.Threading;
 
 
 namespace Kayno.AI.Studio
@@ -122,7 +123,7 @@ namespace Kayno.AI.Studio
 			else if ( dialog == MessageBoxResult.No )
 			{
 				await InitScreenCapture();
-				DoScreenCapture();
+				//DoScreenCapture();
 				// 前回のキャプチャ領域でキャプチャを開始する
 			}
 			else
@@ -134,8 +135,10 @@ namespace Kayno.AI.Studio
 
 		private async void CMD_Dock_SendDataOnly_Executed( object sender, ExecutedRoutedEventArgs e )
 		{
+
+			//dispatcherTimer.Tick -= DispatherScreenCaptureRenderTimer_Tick;
 			//DoScreenCapture( true );
-			// 2025-03-17 バグ？なんか挙動がおかしい。GPUを浪費し始める
+			//dispatcherTimer.Tick += DispatherScreenCaptureRenderTimer_Tick;
 
 			PaneProgress1.Visibility = Visibility.Visible;
             if ( (bool)toggleButton_Use_txt2img.IsChecked )
@@ -146,6 +149,7 @@ namespace Kayno.AI.Studio
                 }
 
             }
+
 			await Task.Run( () =>
 			{
 				webSenderSelenium1.SendWebData( CurrentPayloadCollection );
@@ -157,8 +161,12 @@ namespace Kayno.AI.Studio
 
 		private async void CMD_Dock_DoGeneration_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			//webSenderSelenium1.SendWebData(CurrentPayloadCollection);
+			
 			PaneProgress1.Visibility = Visibility.Visible;
+			//dispatcherTimer.Tick -= DispatherScreenCaptureRenderTimer_Tick;
+			//DoScreenCapture(true);
+			//dispatcherTimer.Tick += DispatherScreenCaptureRenderTimer_Tick;
+
 			StartProgress();
             await Task.Run( () =>
             {

@@ -83,8 +83,9 @@ namespace Kayno.AI.Studio
 						}
 					});
 				}
-				catch (WebDriverTimeoutException)
+				catch (WebDriverTimeoutException ex)
 				{
+					MessageBox.Show("Not found url: " + ex.Message);
 					// タイムアウトした場合の処理
 					//throw new NoSuchElementException($"SDWebUI Timeout");
 				}
