@@ -12,7 +12,7 @@ public class MathRoundConverter : IValueConverter
 
 		if ( value is double doubleValue )
 		{
-			return Math.Round( doubleValue, v ); // 小数第1位に丸める
+			return Math.Round( doubleValue, v, MidpointRounding.AwayFromZero );
 		}
 		return value;
 	}

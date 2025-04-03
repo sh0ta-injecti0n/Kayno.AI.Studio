@@ -168,4 +168,10 @@
   <data name="Dialog_ComfirmPresetSave" xml:space="preserve">
     <value>Save current payload parameters?</value>
   </data>
+  <data name="Pane_Button_PresetSlotOpen" xml:space="preserve">
+    <value>📂 Open/Manage</value>
+  </data>
+  <data name="Pane_Button_PresetSlotSave" xml:space="preserve">
+    <value>💾 Save</value>
+  </data>
 </root>

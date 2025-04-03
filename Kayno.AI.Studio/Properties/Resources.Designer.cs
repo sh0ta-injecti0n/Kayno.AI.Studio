@@ -160,6 +160,24 @@ namespace Kayno.AI.Studio.Properties {
         }
         
         /// <summary>
+        ///   📂 Open/Manage に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Pane_Button_PresetSlotOpen {
+            get {
+                return ResourceManager.GetString("Pane_Button_PresetSlotOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   💾 Save に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Pane_Button_PresetSlotSave {
+            get {
+                return ResourceManager.GetString("Pane_Button_PresetSlotSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Reload Models or others. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Pane_ButtonReload {

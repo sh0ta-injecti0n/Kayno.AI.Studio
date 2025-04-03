@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using System.Configuration;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 
@@ -25,7 +26,9 @@ namespace Kayno.AI.Studio
 		 */
 
 		public static RoutedUICommand CMD_Test = CommandHelper.CreateCommand(nameof(CMD_Test));
-		public static RoutedUICommand CMD_PresetSlot = CommandHelper.CreateCommand(nameof(CMD_PresetSlot));
+		//public static RoutedUICommand CMD_PresetSlot = CommandHelper.CreateCommand(nameof(CMD_PresetSlot));
+		public static RoutedUICommand CMD_PresetSlotOpen = CommandHelper.CreateCommand(nameof(CMD_PresetSlotOpen));
+		public static RoutedUICommand CMD_PresetSlotSave = CommandHelper.CreateCommand(nameof(CMD_PresetSlotSave));
 		public static RoutedUICommand CMD_ResetModels = CommandHelper.CreateCommand(nameof(CMD_ResetModels));
 		public static RoutedUICommand CMD_SwitchPinEditor = CommandHelper.CreateCommand(nameof(CMD_SwitchPinEditor));
 		
@@ -62,34 +65,75 @@ namespace Kayno.AI.Studio
 			MessageBox.Show( "test" );
 		}
 
-		private async void CMD_PresetSlot_Executed(object sender, ExecutedRoutedEventArgs e)
-		{
-			var msg_save = Properties.Resources.Dialog_ComfirmPresetSave;
-			var msgBox = MessageBox.Show( msg_save, "", MessageBoxButton.YesNo );
-			if ( msgBox == MessageBoxResult.Yes )
-			{
-                TsvSerializer.SaveToTsv( CurrentPayloadPath, CurrentPayloadCollection );
-            }
+		//private async void CMD_PresetSlot_Executed(object sender, ExecutedRoutedEventArgs e)
+		//{
+		//	var msg_save = Properties.Resources.Dialog_ComfirmPresetSave;
+		//	var msgBox = MessageBox.Show( msg_save, "", MessageBoxButton.YesNo );
+		//	if ( msgBox == MessageBoxResult.Yes )
+		//	{
+        //        TsvSerializer.SaveToTsv( CurrentPayloadPath, CurrentPayloadCollection );
+        //    }
+		//
+        //    var msg = Properties.Resources.PresetSlotManager_InitialMessage;
+		//	MessageBox.Show( msg );
+		//	var dialog = new OpenFolderDialog();
+		//	dialog.InitialDirectory = KaynoDataDirectory;
+		//	dialog.Title = msg;
+		//
+        //    var res = dialog.ShowDialog();
+		//
+		//	if ( res == true )
+		//	{
+		//		CurrentPayloadDir = dialog.FolderName;
+		//		await LoadPayload();
+		//
+		//		//listView_PinnedPane.GetBindingExpression( ListView.ItemsSourceProperty ).UpdateTarget();
+		//		//listView_PinnedPane.GetBindingExpression( ListView.DataContextProperty ).UpdateTarget();
+		//		//TogglePinPane();
+		//
+		//		textBlock_CurrentPayloadPreset.Text = CurrentPayloadDir;
+		//	}
+		//
+		//}
 
-            var msg = Properties.Resources.PresetSlotManager_InitialMessage;
-			MessageBox.Show( msg );
+		private async void CMD_PresetSlotOpen_Executed(object sender, RoutedEventArgs e)
+		{
+			var msg = Properties.Resources.PresetSlotManager_InitialMessage;
+
 			var dialog = new OpenFolderDialog();
 			dialog.InitialDirectory = KaynoDataDirectory;
 			dialog.Title = msg;
 
-            var res = dialog.ShowDialog();
+			var res = dialog.ShowDialog();
 
-			if ( res == true )
+			if (res == true)
 			{
 				CurrentPayloadDir = dialog.FolderName;
+
 				await LoadPayload();
 
-				//listView_PinnedPane.GetBindingExpression( ListView.ItemsSourceProperty ).UpdateTarget();
-                //listView_PinnedPane.GetBindingExpression( ListView.DataContextProperty ).UpdateTarget();
 				//TogglePinPane();
+				//textBlock_CurrentPayloadPreset.Text = CurrentPayloadDir;
+				//listView_PinnedPane.GetBindingExpression(ListView.DataContextProperty).UpdateTarget();
+				//listView_PinnedPane.UpdateLayout();
+
+				//BuildUIFromPayload(listView_PinnedPane, payloads_All);
 
 			}
 
+		}
+		private async void CMD_PresetSlotSave_Executed(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				TsvSerializer.SaveToTsv(CurrentPayloadPath, CurrentPayloadCollection);
+				MessageBox.Show("保存しました");
+			}
+			catch (Exception ex) 
+			{ 
+				MessageBox.Show("保存できませんでした。" + ex.Message);
+
+			}
 		}
 
 		private async void CMD_ResetModels_Executed( object sender, RoutedEventArgs e )
@@ -98,7 +142,11 @@ namespace Kayno.AI.Studio
             var res = MessageBox.Show( msg, "", MessageBoxButton.YesNo );
             if ( res == MessageBoxResult.Yes )
             {
-                await LoadPayload();
+				ResetModelSourceFiles();
+				ResetPromptSourceFiles();
+				BuildUIFromPayload(listView_PinnedPane, payloads_PinnedOnly);
+
+				//await LoadPayload();
 
             }
         }
@@ -145,7 +193,11 @@ namespace Kayno.AI.Studio
             {
                 foreach ( var p in CurrentPayloadCollection )
                 {
-                    p.WebSelectorValue = p.WebSelectorValue.Replace( "img2img", "txt2img" );
+					try
+					{
+						p.WebSelectorValue = p.WebSelectorValue.Replace( "img2img", "txt2img" );
+					}
+					catch { }
                 }
 
             }

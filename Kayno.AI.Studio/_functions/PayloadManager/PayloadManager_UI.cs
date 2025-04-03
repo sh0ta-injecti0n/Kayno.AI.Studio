@@ -87,8 +87,13 @@ namespace Kayno.AI.Studio
 		/// <summary>
 		/// モデルのリストを更新し、ペイロード(SDWebUIへ送信する設定データ)を読み込みます。
 		/// </summary>
-		public async Task LoadPayload()
+		public async Task LoadPayload(string payloadpath = "")
 		{
+			if (string.IsNullOrEmpty(payloadpath))
+			{
+				payloadpath = CurrentPayloadPath;
+			}
+
 			ResetModelSourceFiles();
 			ResetPromptSourceFiles();
 			//先にこの2つを await なしで読み込むこと。非同期でComboBoxが空のまま読まれることを防止
@@ -97,19 +102,22 @@ namespace Kayno.AI.Studio
 			( 
 				() =>
 				{
-					
-					var loadedPayloads = TsvSerializer.LoadFromTsv<Payload>(CurrentPayloadPath);
-					CurrentPayloadCollection = new ObservableCollection<Payload>(loadedPayloads);
+					var loadedPayloads = TsvSerializer.LoadFromTsv<Payload>(payloadpath);
+					CurrentPayloadCollection = loadedPayloads;
 
-					//CurrentPayloadCollection = new ObservableCollection<Payload>();
-					//
-					//ResetModelSourceFiles();
-					//ResetPromptSourceFiles();
-					//CurrentPayloadCollection = TsvSerializer.LoadFromTsv<Payload>( CurrentPayloadPath );
 				}
 			);
-			
-			listView_PinnedPane.DataContext = CurrentPayloadCollection;
+
+
+			textBlock_CurrentPayloadPreset.Text = "Preset: " + Path.GetFileNameWithoutExtension(CurrentPayloadDir);
+
+			BuildUIFromPayload(listView_PinnedPane, payloads_PinnedOnly);
+			// 2025-03-30
+			// Payloadロード後にきちんとUIに反映されるように修正
+			// ※ListViewには直接データバインディング済みのUIパーツを追加しているので、
+			// ↓などは効かないので注意
+			// ~~.DataContext = CurrentPayloadCollection
+			// BindingOperations.GetSourceUpdatingBindings(listView_PinnedPane);
 
 		}
 
@@ -123,7 +131,6 @@ namespace Kayno.AI.Studio
                 TsvSerializer.SaveToTsv<Payload>( CurrentPayloadPath, CurrentPayloadCollection );
             }
             
-			//TsvSerializer.SaveToTsv<Payload>( CurrentPayloadPath, CurrentPayloadCollection );
             //await Json_ClassToJson(CurrentPayloadCollection, CurrentPayloadPath);
 		}
 
@@ -349,9 +356,9 @@ namespace Kayno.AI.Studio
 					{
 						Minimum = payload.UI_SliderMinVal ?? 0,
 						Maximum = payload.UI_SliderMaxVal ?? 100,
-						TickFrequency = payload.UI_SliderSnapValue ?? 0,
-						//Value = Math.Round( Convert.ToDouble(payload.PropertyValue ?? 0 ), 3),
-						// 0.1+0.2問題のため必ず丸めること
+						TickFrequency = payload.UI_SliderSnapValue ?? 0.01,
+						SmallChange = payload.UI_SliderSnapValue ?? 0.1,
+						// smallchange がないとRoundの関係で永遠に増えなかったりするので注意
 						Style = FindResource("Slider1") as Style,
 						DataContext = payload,
 						
@@ -360,9 +367,23 @@ namespace Kayno.AI.Studio
 					{
 						Mode = BindingMode.TwoWay,
 						UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-						Converter = new MathRoundConverter()
+						Converter = new MathRoundConverter(),
+						ConverterParameter = 3
+						// 0.1+0.2問題のため必ずRoundで丸めること
 					};
 					BindingOperations.SetBinding( control, Slider.ValueProperty, binding_slider );
+
+					//static int GetDecimalPlaces(decimal number)
+					//{
+					//	// 小数点以下の桁数を計算
+					//	string str = number.ToString("G", System.Globalization.CultureInfo.InvariantCulture);
+					//	int decimalIndex = str.IndexOf('.');
+					//	if (decimalIndex == -1)
+					//	{
+					//		return 0; // 小数点がない場合
+					//	}
+					//	return str.Length - decimalIndex - 1;
+					//}
 
 					break;
 

@@ -1,296 +1,338 @@
 ﻿<Window
-    x:Class="Kayno.AI.Studio.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-    xmlns:this="clr-namespace:Kayno.AI.Studio"
-    xmlns:Prop="clr-namespace:Kayno.AI.Studio.Properties"
-    Title="Kayno.AI.Studio"
-    Width="400"
-    Height="1080"
-    Background="{StaticResource GradientBackgroundDark}"
-    FontFamily="{StaticResource GlobalFontFamily}"
-    Icon="/_res/img/Design.Icon.ico"
-    mc:Ignorable="d"
-    >
-    <!--
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    -->
-    <Window.Resources>
-        <ResourceDictionary>
+	x:Class="Kayno.AI.Studio.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+	xmlns:this="clr-namespace:Kayno.AI.Studio"
+	xmlns:Prop="clr-namespace:Kayno.AI.Studio.Properties"
+	Title="Kayno.AI.Studio"
+	Width="400"
+	Height="1080"
+	Background="{StaticResource GradientBackgroundDark}"
+	FontFamily="{StaticResource GlobalFontFamily}"
+	Icon="/_res/img/Design.Icon.ico"
+	mc:Ignorable="d"
+	>
+	<!--
+		xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+	-->
+	<Window.Resources>
+		<ResourceDictionary>
 
-            <Style TargetType="TextBox" BasedOn="{StaticResource TextBox1}" />
+			<Style
+				TargetType="TextBox"
+				BasedOn="{StaticResource TextBox1}"
+				/>
 
-        </ResourceDictionary>
-    </Window.Resources>
+		</ResourceDictionary>
+	</Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition x:Name="rowDef_Bottom" Height="auto" />
-        </Grid.RowDefinitions>
-
-
-        <!--#region ## DockPanel Main-->
-        <DockPanel Grid.Row="1">
-
-            <!--#region ## ≡ Pane-->
-            <Border
-                x:Name="border_ParameterPane"
-                MinHeight="360"
-                DockPanel.Dock="Bottom"
-                BorderBrush="{StaticResource SolidBase7}"
-                BorderThickness="2"
-                CornerRadius="24"
-                Background="{StaticResource SolidBase8}"
-                >
-
-                <StackPanel
-                    x:Name="stackPanel_ParameterPane"
-                    Orientation="Vertical"
-                    CanVerticallyScroll="True"
-                    >
-
-                    <!--#region ## 🔧 PaneToolbar: TopRight-->
-                    <StackPanel
-                        Margin="{StaticResource m1}"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal"
-                        >
-
-                        <ToggleButton
-                            x:Name="toggleButton_Use_txt2img"
-                            Content="A"
-                            IsChecked="False"
-                            Style="{StaticResource ButtonToggleIcon}"
-                            ToolTip="Use txt2img (EXPERIMENTAL)"
-                            />
-
-                        <Rectangle Width="8" />
-
-                        <TextBlock Style="{StaticResource TextBlock1}">
-                            Preset Slot:
-                        </TextBlock>
-
-                        <Button
-                            x:Name="buttonPresetSlot"
-                            Style="{StaticResource ButtonIcon}"
-                            Content=""
-                            ToolTip="Select Preset Slot..."
-                            Command="{x:Static this:MainWindow.CMD_PresetSlot}"
-                            />
-
-                        <Button
-                            Style="{StaticResource ButtonIcon}"
-                            Content=""
-                            ToolTip="{x:Static Prop:Resources.Pane_ButtonReload}"
-                            Command="{x:Static this:MainWindow.CMD_ResetModels}"
-                            />
-                        <!--
-                            Click="CMD_ResetModels_Executed"
-                        -->
-
-                        <ToggleButton
-                            x:Name="toggleButton_SwitchPinEditor"
-                            Content=""
-                            IsChecked="False"
-                            Style="{StaticResource ButtonToggleIcon}"
-                            Command="{x:Static this:MainWindow.CMD_SwitchPinEditor}"
-                            ToolTip="{x:Static Prop:Resources.Pane_ButtonToggleVisible}"
-                            />
-                        <!--
-                            Click="Button_SwitchPinEditor"
-                        -->
-                    </StackPanel>
-                    <!--#endregion ## PaneToolbar: TopRight-->
-
-                    <!--#region ## ★ Payload Pane ★-->
-                    <ListView x:Name="listView_PinnedPane" Style="{StaticResource ListView1}" />
-                    <!--#endregion ## ★ Payload Pane ★-->
-
-                </StackPanel>
-            </Border>
-            <!--#endregion-->
-
-            <!--#region ## 👁️ Preview Image-->
-            <Grid>
-
-                <this:ImageGallery
-                    x:Name="imageGallery1"
-                    FilterFileName="*.*"
-                    UseRecursive="True"
-                    />
-
-                <Border Background="Gray" Visibility="{Binding ElementName=toggleButton_CompPreview, Path=IsChecked, Converter={StaticResource boolToVisible}}">
-                    <Image
-                        x:Name="ImageCapture"
-                        Stretch="Uniform"
-                        DockPanel.Dock="Left"
-                        RenderOptions.BitmapScalingMode="Fant"
-                        Source="{Binding BitmapImageScreenCapture}"
-                        />
-                </Border>
-
-                <StackPanel
-                    Orientation="Horizontal"
-                    DockPanel.Dock="Left"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    >
-                    
-                    <ToggleButton
-                        x:Name="toggleButton_CompPreview"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Style="{StaticResource ButtonToggleIcon}"
-                        Content=""
-                        IsChecked="False"
-                        ToolTip="キャプチャ/送信する画像のプレビュー" 
-                        Margin="8"
-                        />
-
-                    <Button
-                        x:Name="button_SendToApp"
-                        Style="{StaticResource ButtonIcon}"
-                        Content=""
-                        ToolTip="画像を貼り付ける先のアプリを選択"
-                        Command="{x:Static this:MainWindow.CMD_PasteImage0}"
-                        />
-
-                </StackPanel>
-
-                <!--#region ## Progress Pane-->
-                <Border
-                    x:Name="pane_progressGen"
-                    Margin="0,16,0,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    CornerRadius="16"
-                    Width="auto"
-                    Height="auto"
-                    Background="{StaticResource GradientMainAccent}"
-                    Visibility="Collapsed"
-                    >
-
-                    <TextBlock
-                        x:Name="textBlock_progressGen"
-                        Margin="16"
-                        Style="{StaticResource TextBlock1}"
-                        Text=""
-                        TextAlignment="Center"
-                        />
-                </Border>
-                <!--#endregion ## Progress Pane-->
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition
+				x:Name="rowDef_Bottom"
+				Height="auto"
+				/>
+		</Grid.RowDefinitions>
 
 
-            </Grid>
+		<!--#region ## DockPanel Main-->
+		<DockPanel Grid.Row="1">
 
-            <!--#endregion-->
+			<!--#region ## ≡ Pane-->
+			<Border
+				x:Name="border_ParameterPane"
+				MinHeight="360"
+				DockPanel.Dock="Bottom"
+				BorderBrush="{StaticResource SolidBase7}"
+				BorderThickness="2"
+				CornerRadius="24"
+				Background="{StaticResource SolidBase8}"
+				>
 
-        </DockPanel>
-        <!--#endregion-->
+				<StackPanel
+					x:Name="stackPanel_ParameterPane"
+					Orientation="Vertical"
+					CanVerticallyScroll="True"
+					>
+
+					<!--#region ## 🔧 PaneToolbar: TopRight-->
+					<StackPanel
+						Margin="{StaticResource m1}"
+						HorizontalAlignment="Right"
+						Orientation="Horizontal"
+						>
+
+						<ToggleButton
+							x:Name="toggleButton_Use_txt2img"
+							Content="A"
+							IsChecked="False"
+							Style="{StaticResource ButtonToggleIcon}"
+							ToolTip="Use txt2img (EXPERIMENTAL)"
+							/>
+
+						<Rectangle Width="8" />
+
+						<!--
+						
+						<TextBlock Style="{StaticResource TextBlock1}">
+							Preset Slot:
+						</TextBlock>
+							<ToggleButton
+					x:Name="buttonPresetSlot"
+					Style="{StaticResource ButtonToggleIcon}"
+					Content=""
+					ToolTip="Select Preset Slot..."
+					/>
+							Command="{x:Static this:MainWindow.CMD_PresetSlot}"
+						-->
+						<TextBlock
+							x:Name="textBlock_CurrentPayloadPreset"
+							Style="{StaticResource TextBlock1}"
+							Text=""
+							/>
+						<Button
+							x:Name="buttonPresetSlotOpen"
+							Style="{StaticResource ButtonIcon}"
+							Content=""
+							ToolTip="{x:Static Prop:Resources.Pane_Button_PresetSlotOpen}"
+							Command="{x:Static this:MainWindow.CMD_PresetSlotOpen}"
+							/>
+						<Button
+							x:Name="buttonPresetSlotSave"
+							Style="{StaticResource ButtonIcon}"
+							Content=""
+							ToolTip="{x:Static Prop:Resources.Pane_Button_PresetSlotSave}"
+							Command="{x:Static this:MainWindow.CMD_PresetSlotSave}"
+							/>
+						<Button
+							Style="{StaticResource ButtonIcon}"
+							Content=""
+							ToolTip="{x:Static Prop:Resources.Pane_ButtonReload}"
+							Command="{x:Static this:MainWindow.CMD_ResetModels}"
+							/>
+						<!--
+							Click="CMD_ResetModels_Executed"
+						-->
+
+						<ToggleButton
+							x:Name="toggleButton_SwitchPinEditor"
+							Content=""
+							IsChecked="False"
+							Style="{StaticResource ButtonToggleIcon}"
+							Command="{x:Static this:MainWindow.CMD_SwitchPinEditor}"
+							ToolTip="{x:Static Prop:Resources.Pane_ButtonToggleVisible}"
+							/>
+						<!--
+							Click="Button_SwitchPinEditor"
+						-->
+					</StackPanel>
+					<!--#endregion ## PaneToolbar: TopRight-->
 
 
-        <!--#region ## AppBar Controls-->
-        <Border
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Height="120"
-            VerticalAlignment="Bottom"
-            Background="{StaticResource GradientBackgroundDarkToTransp}"
-            >
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="128" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="128" />
-                </Grid.ColumnDefinitions>
+					<!--#region ## ★ Payload Pane ★-->
+					<ListView
+						x:Name="listView_PinnedPane"
+						Style="{StaticResource ListView1}"
+						/>
+					<!--#endregion ## ★ Payload Pane ★-->
 
-                <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    >
-                    <Button
-                        Style="{StaticResource ButtonIcon}"
-                        Content=""
-                        ToolTip="{x:Static Prop:Resources.Dock_ScreenCapture_Region}"
-                        Command="{x:Static this:MainWindow.CMD_ScreenCapture_RegionDefine}"
-                        />
+				</StackPanel>
+			</Border>
+			<!--#endregion-->
 
-                    <Rectangle Width="8" />
+			<!--#region ## 👁️ Preview Image-->
+			<Grid>
 
-                    <Button
-                        Style="{StaticResource ButtonIcon}"
-                        ToolTip="{x:Static Prop:Resources.Dock_Gen_SendDataOnly}"
-                        Command="{x:Static this:MainWindow.CMD_Dock_SendDataOnly}"
-                        >
-                        <TextBlock Margin="0,0,2,0" Text="" />
-                    </Button>
+				<this:ImageGallery
+					x:Name="imageGallery1"
+					FilterFileName="*.*"
+					UseRecursive="True"
+					/>
 
-                </StackPanel>
+				<Border
+					Background="Gray"
+					Visibility="{Binding ElementName=toggleButton_CompPreview, Path=IsChecked, Converter={StaticResource boolToVisible}}"
+					>
+					<Image
+						x:Name="ImageCapture"
+						Stretch="Uniform"
+						DockPanel.Dock="Left"
+						RenderOptions.BitmapScalingMode="Fant"
+						Source="{Binding BitmapImageScreenCapture}"
+						/>
+				</Border>
 
-                <Button
-                    Grid.Column="1"
-                    Width="64"
-                    Height="64"
-                    d:Content="✦"
-                    Style="{StaticResource ButtonPrimaryMain}"
-                    FontFamily="{StaticResource FontIcon4}"
-                    Content=""
-                    Command="{x:Static this:MainWindow.CMD_Dock_DoGeneration}"
-                    ToolTip="{x:Static Prop:Resources.Dock_Gen_Do}"
-                    >
-                    <Button.Resources>
-                        <Style TargetType="ToolTip" BasedOn="{StaticResource ToolTip1}">
-                            <Setter Property="Background" Value="{StaticResource GradientMainAccent}" />
-                            <Setter Property="Foreground" Value="{StaticResource SolidBase1}" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
-                <!--
-                    Click="ButtonStartGeneration"
-                -->
-                <StackPanel
-                    Grid.Column="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    >
+				<StackPanel
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Orientation="Horizontal"
+					DockPanel.Dock="Left"
+					>
 
-                    <ToggleButton
-                        x:Name="toggleButton_SeleniumChecker"
-                        Style="{StaticResource ButtonIcon}"
-                        Content=""
-                        ToolTip="For Selenium / XPathを入力してEnterで確認可能"
-                        />
+					<ToggleButton
+						x:Name="toggleButton_CompPreview"
+						Margin="8"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						Style="{StaticResource ButtonToggleIcon}"
+						Content=""
+						IsChecked="False"
+						ToolTip="キャプチャ/送信する画像のプレビュー"
+						/>
 
-                    <Popup
-                        Width="300"
-                        Height="96"
-                        Placement="Bottom"
-                        IsOpen="{Binding ElementName=toggleButton_SeleniumChecker, Path=IsChecked}"
-                        >
-                        <TextBox
-                            Width="300"
-                            Height="96"
-                            Style="{StaticResource TextBox1}"
-                            KeyDown="_test__KeyDown"
-                            />
-                    </Popup>
+					<Button
+						x:Name="button_SendToApp"
+						Style="{StaticResource ButtonIcon}"
+						Content=""
+						ToolTip="画像を貼り付ける先のアプリを選択"
+						Command="{x:Static this:MainWindow.CMD_PasteImage0}"
+						/>
 
-                    <Rectangle Width="8" />
+				</StackPanel>
 
-                    <Button
-                        Style="{StaticResource ButtonIcon}"
-                        Content=""
-                        Command="{x:Static this:MainWindow.CMD_Settings}"
-                        ToolTip="{x:Static Prop:Resources.Pane_ButtonSettings}"
-                        />
+				<!--#region ## Progress Pane-->
+				<Border
+					x:Name="pane_progressGen"
+					Width="auto"
+					Height="auto"
+					Margin="0,16,0,0"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					CornerRadius="16"
+					Background="{StaticResource GradientMainAccent}"
+					Visibility="Collapsed"
+					>
 
-                    <!--
+					<TextBlock
+						x:Name="textBlock_progressGen"
+						Margin="16"
+						Style="{StaticResource TextBlock1}"
+						Text=""
+						TextAlignment="Center"
+						/>
+				</Border>
+				<!--#endregion ## Progress Pane-->
+
+
+			</Grid>
+
+			<!--#endregion-->
+
+		</DockPanel>
+		<!--#endregion-->
+
+
+		<!--#region ## AppBar Controls-->
+		<Border
+			Grid.Row="1"
+			Grid.RowSpan="2"
+			Height="120"
+			VerticalAlignment="Bottom"
+			Background="{StaticResource GradientBackgroundDarkToTransp}"
+			>
+			<Grid
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="128" />
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="128" />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel
+					Grid.Column="0"
+					HorizontalAlignment="Center"
+					Orientation="Horizontal"
+					>
+					<Button
+						Style="{StaticResource ButtonIcon}"
+						Content=""
+						ToolTip="{x:Static Prop:Resources.Dock_ScreenCapture_Region}"
+						Command="{x:Static this:MainWindow.CMD_ScreenCapture_RegionDefine}"
+						/>
+
+					<Rectangle Width="8" />
+
+					<Button
+						Style="{StaticResource ButtonIcon}"
+						ToolTip="{x:Static Prop:Resources.Dock_Gen_SendDataOnly}"
+						Command="{x:Static this:MainWindow.CMD_Dock_SendDataOnly}"
+						>
+						<TextBlock
+							Margin="0,0,2,0"
+							Text=""
+							/>
+					</Button>
+
+				</StackPanel>
+
+				<Button
+					Grid.Column="1"
+					Width="64"
+					Height="64"
+					d:Content="✦"
+					Style="{StaticResource ButtonPrimaryMain}"
+					FontFamily="{StaticResource FontIcon4}"
+					Content=""
+					Command="{x:Static this:MainWindow.CMD_Dock_DoGeneration}"
+					ToolTip="{x:Static Prop:Resources.Dock_Gen_Do}"
+					>
+					<Button.Resources>
+						<Style
+							TargetType="ToolTip"
+							BasedOn="{StaticResource ToolTip1}"
+							>
+							<Setter Property="Background" Value="{StaticResource GradientMainAccent}" />
+							<Setter Property="Foreground" Value="{StaticResource SolidBase1}" />
+						</Style>
+					</Button.Resources>
+				</Button>
+				<!--
+					Click="ButtonStartGeneration"
+				-->
+				<StackPanel
+					Grid.Column="2"
+					HorizontalAlignment="Center"
+					Orientation="Horizontal"
+					>
+
+					<ToggleButton
+						x:Name="toggleButton_SeleniumChecker"
+						Style="{StaticResource ButtonIcon}"
+						Content=""
+						ToolTip="For Selenium / XPathを入力してEnterで確認可能"
+						/>
+
+					<Popup
+						Width="300"
+						Height="96"
+						Placement="Bottom"
+						IsOpen="{Binding ElementName=toggleButton_SeleniumChecker, Path=IsChecked}"
+						>
+						<TextBox
+							Width="300"
+							Height="96"
+							Style="{StaticResource TextBox1}"
+							KeyDown="_test__KeyDown"
+							/>
+					</Popup>
+
+					<Rectangle Width="8" />
+
+					<Button
+						Style="{StaticResource ButtonIcon}"
+						Content=""
+						Command="{x:Static this:MainWindow.CMD_Settings}"
+						ToolTip="{x:Static Prop:Resources.Pane_ButtonSettings}"
+						/>
+
+					<!--
 					<Image
 						x:Name="ImageCapture"
 						Stretch="Uniform"
@@ -299,44 +341,47 @@
 						/>
 					-->
 
-                </StackPanel>
-            </Grid>
+				</StackPanel>
+			</Grid>
 
-        </Border>
+		</Border>
 
-        <!--#endregion-->
-
-
-        <!--#region ## ProgressBar-->
-        <Border
-            x:Name="PaneProgress1"
-            Grid.RowSpan="3"
-            Grid.ColumnSpan="3"
-            Width="240"
-            Height="96"
-            CornerRadius="16"
-            Background="{StaticResource GradientBackgroundDark}"
-            Visibility="Collapsed"
-            >
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Vertical"
-                >
-                <Border Height="8" />
-                <ProgressBar
-                    x:Name="progressBar1"
-                    Style="{StaticResource ProgressBarStyle1}"
-                    Foreground="{StaticResource GradientMainAccent}"
-                    IsIndeterminate="True"
-                    Value="40"
-                    />
-                <Border Height="8" />
-                <TextBlock Text="しばらくお待ちください..." Style="{StaticResource TextBlock1}" />
-            </StackPanel>
-        </Border>
-        <!--#endregion ## ProgressBar-->
+		<!--#endregion-->
 
 
-    </Grid>
+		<!--#region ## ProgressBar-->
+		<Border
+			x:Name="PaneProgress1"
+			Grid.RowSpan="3"
+			Grid.ColumnSpan="3"
+			Width="240"
+			Height="96"
+			CornerRadius="16"
+			Background="{StaticResource GradientBackgroundDark}"
+			Visibility="Collapsed"
+			>
+			<StackPanel
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Orientation="Vertical"
+				>
+				<Border Height="8" />
+				<ProgressBar
+					x:Name="progressBar1"
+					Style="{StaticResource ProgressBarStyle1}"
+					Foreground="{StaticResource GradientMainAccent}"
+					IsIndeterminate="True"
+					Value="40"
+					/>
+				<Border Height="8" />
+				<TextBlock
+					Text="しばらくお待ちください..."
+					Style="{StaticResource TextBlock1}"
+					/>
+			</StackPanel>
+		</Border>
+		<!--#endregion ## ProgressBar-->
+
+
+	</Grid>
 </Window>

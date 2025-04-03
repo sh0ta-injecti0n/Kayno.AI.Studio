@@ -71,7 +71,7 @@ namespace Kayno.AI.Studio
 			}
 			// SDWebUIを先に開いておく
 
-			TogglePinPane(false);
+			//TogglePinPane(false);
 		}
 
 		protected override async void OnContentRendered(EventArgs e)

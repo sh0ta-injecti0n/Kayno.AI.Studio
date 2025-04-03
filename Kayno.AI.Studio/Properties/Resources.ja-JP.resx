@@ -168,4 +168,10 @@
   <data name="Dialog_ComfirmPresetSave" xml:space="preserve">
     <value>パラメーター(Payload)を保存しますか？</value>
   </data>
+  <data name="Pane_Button_PresetSlotOpen" xml:space="preserve">
+    <value>📂 開く/管理</value>
+  </data>
+  <data name="Pane_Button_PresetSlotSave" xml:space="preserve">
+    <value>💾 保存</value>
+  </data>
 </root>
