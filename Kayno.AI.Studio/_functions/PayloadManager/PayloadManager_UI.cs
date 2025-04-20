@@ -273,7 +273,7 @@ namespace Kayno.AI.Studio
 		{
 			// UISelectorを見て適切なコントロールを生成
 			UIElement control = null;
-			grid.Height = NoLabel ? 92 : 32;
+			grid.Height = NoLabel ? double.NaN : 32;
 			object tooltipContent = payload.Comments;
 
 			switch (payload.UI)
@@ -315,9 +315,39 @@ namespace Kayno.AI.Studio
 						AllowDrop = true,
 						DataContext = payload,
 					};
-                    ( (Grid)control ).Children.Add( control_tb );
 
-                    BindingOperations.SetBinding( control_tb, TextBox.TextProperty, new Binding(nameof(Payload.PropertyValue)));
+					((Grid)control).Children.Add(control_tb);
+
+					if (NoLabel)
+					{
+						var pane_grip = new Grid
+						{
+							Width = 24,
+							Height = 24,
+							VerticalAlignment = VerticalAlignment.Bottom,
+							HorizontalAlignment = HorizontalAlignment.Right,
+						};
+						var thumbGrip = new Thumb
+						{
+							Opacity = 0,
+						};
+						var textblock_grip = new TextBlock()
+						{
+							Margin = new Thickness(4),
+							Text = "↕",
+							Foreground = Brushes.Gray,
+						};
+						pane_grip.Children.Add(textblock_grip);
+						pane_grip.Children.Add(thumbGrip);
+						thumbGrip.DragDelta += (s, e) =>
+						{
+							var heightAfter = control_tb.Height + e.VerticalChange;
+							control_tb.Height = Math.Max(32, heightAfter);
+						};
+						((Grid)control).Children.Add(pane_grip);
+
+					}
+					BindingOperations.SetBinding( control_tb, TextBox.TextProperty, new Binding(nameof(Payload.PropertyValue)));
 
 					control_tb.PreviewDragOver += ( s, e ) =>
 					{
