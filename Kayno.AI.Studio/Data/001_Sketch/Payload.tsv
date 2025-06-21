@@ -7,16 +7,16 @@ clip_skip	2	Clip Skip	Clip Skip		XPath	"//*[@id=""setting_CLIP_stop_at_last_laye
 token_merging_ratio	0.8	ToMe (冗長な単語のマージ率)	Token Merging Ratio		XPath	"//*[@id=""setting_token_merging_ratio""]/div[2]/div/input"	Slider	False	True	0	1	0.1					※ここでのトークンは画像ピクセルのこと。1に近いほどトークンが省かれていくが、省略されるので画質は下がる
 tab_img2img		tab_img2img	tab_img2img		XPath	"//*[@id=""tabs""]/div[1]/button[2]"	Button	False	False								
 button_generate		button_generate	button_generate		XPath	"//*[@id=""img2img_generate""]"	Button	False	False								
-prompt	"1boy, 13yo boy, beautiful face, green eyes, {messy:1.1} long blonde hair, 
+prompt	"1boy, 13yo boy, beautiful face, green eyes, (messy:1.1) long blonde hair, 
 thick eyebrows, light smile, 
-{androgynous:1.2}, flat chest, 
+(androgynous:1.2), flat chest, 
 v with right hand, left hand on ground, 
 BREAK
 transparent hoodie, gradient acrylic hoodie, 
 sitting on beach, legs stretched out, 
-{textured:1.2} {deep royalblue tights:1.4}, light brown boys shorts, 
+(textured:1.2) (deep royalblue tights:1.4), light brown boys shorts, 
 BREAK
-soft lighting, sunlight, {dynamic angle:0.8}, {from_above:0.5}, 
+soft lighting, sunlight, (dynamic angle:0.8), (from_above:0.5), 
 masterpiece, best quality, absurdres, newest, very aesthetic, amazing quality, highres, sensitive, photo background, realistic background,"	プロンプト	Prompt	👍️	XPath	"//*[@id=""img2img_prompt""]/label/textarea"	TextBox	True	True				.\DataGlobal\ItemsSource_-_prompt.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			プロンプトはいわば命令文であり、作品の主題や色、構図などの詳細を書きます。
 prompt_neg	"nsfw, 1girl, girls, girl, multiple girls, multiple_people, bra, black pantyhose, blown_pantyhose, 
 lowres, (bad), bad feet, text, error, fewer, extra, missing, worst quality, jpeg artifacts, low quality, watermark, unfinished, displeasing, oldest, early, chromatic aberration, signature, artistic error, username, scan, [abstract], english text,"	ネガティブプロンプト	Negative Prompt	👎️	XPath	"//*[@id=""img2img_neg_prompt""]/label/textarea"	TextBox	True	True				.\DataGlobal\ItemsSource_-_prompt.tsv	System.Collections.ObjectModel.ObservableCollection`1[Kayno.AI.Studio.PayloadTemplate]			含めたくないモチーフやオブジェクトなどを書きます。
