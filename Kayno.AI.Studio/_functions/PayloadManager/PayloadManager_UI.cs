@@ -897,7 +897,7 @@ namespace Kayno.AI.Studio
 		}
 
 
-		#region ## プロンプトの{~:1.1}のやつ: Weight Controller
+		#region ## プロンプトの(~:1.1)のやつ: Weight Controller
 		private void PromptWeightController(TextBox textBox, bool IsIncreasing)
 		{
 			if (textBox == null) return;
@@ -907,12 +907,17 @@ namespace Kayno.AI.Studio
 
 			// TextをコンマとBREAKで分割
 			string[] parts = SplitTextIntoParts(text);
+
+			//
+			// e.g.
 			// 1cat, your keywo|rd set, BREAK, test test, test...
-			// { "1cat", " {your keyword set:1.2}", " ", "", " test test", " test" ...  }
+			// ↓
+			// [ "1cat", " (your keyword set:1.2)", " ", "", " test test", " test" ...  ]
+			//
 
 			string extractedText = FindPartByCaretIndex(parts, text, caretIndex);
 			// CaretIndexが含まれる要素を特定
-			// , {your keywo|rd set: 1.2} BREAK
+			// , (your keywo|rd set: 1.2) BREAK
 			//  ^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 			extractedText = extractedText.Trim();
@@ -931,9 +936,9 @@ namespace Kayno.AI.Studio
 			var newValue = AdjustValue(currentValue, IsIncreasing);
 			// 1.2 -> 1.3 (or 1.1)
 
-			// {keyword_set:newValue}という書式にする
-			string result = $"{{{keywordSet}:{newValue}}}";
-			// {your keyword set:1.x}
+			// (keyword_set:newValue)という書式にする
+			string result = $"({keywordSet}:{newValue})";
+			// (your_keywords:x.x)
 
 			textBox.Text = textBox.Text.Replace(extractedText, result);
 			textBox.CaretIndex = caretIndex;
@@ -979,7 +984,7 @@ namespace Kayno.AI.Studio
 
 		private string ExtractText(string text)
 		{
-			// {key:value}形式からkey部分を抽出
+			// (key:value)形式からkey部分を抽出
 			Match match = Regex.Match(text, @"(.*):");
 			if (match.Success)
 			{
@@ -991,36 +996,37 @@ namespace Kayno.AI.Studio
 				return text;
 			}
 
-			// {と:に囲まれた部分を抽出
-			//Match match = Regex.Match(text, @"\{(.*?):");
-			//if (match.Success)
-			//{
-			//	return match.Groups[1].Value;
-			//}
-			//else
-			//{
-			//	return text;
-			//}
 		}
 
 
 		private decimal ParseCurrentValue(string text)
 		{
 			// 既存の書式から数字部分を抽出
-			Match match = Regex.Match(text, @"{.*?:([\d.]+)}");
+			Match match = Regex.Match(text, @"\(.*?:([\d.]+)\)");
 			if (match.Success)
 			{
 				return decimal.Parse(match.Groups[1].Value);
 			}
+			else
+			{
+				Debug.WriteLine("prompt weight controller: NO Match Value");
 
-			// 既存の数字がなければデフォルト値を返す
-			return 1.0m;
+				// 既存の数字がなければデフォルト値を返す
+				return 1.0m;
+			}
+
 		}
 
 		private decimal AdjustValue(decimal currentValue, bool IsIncreasing)
 		{
 			// 0.1ずつ上げ下げ
-			return IsIncreasing ? currentValue + 0.1m :  currentValue - 0.1m;
+			// Caution: 浮動小数点の0.1+0.2=0.30000000... 問題のため、decimalにすること
+
+			var val = IsIncreasing ? currentValue + 0.1m : currentValue - 0.1m;
+			//Debug.WriteLine("prompt weight adj val: {0} > {1} : isIncreasing : {2}", currentValue, val, IsIncreasing);
+			
+			return val;
+
 		}
 
 
