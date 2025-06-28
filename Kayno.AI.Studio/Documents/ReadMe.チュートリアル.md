@@ -15,7 +15,7 @@
 
 
 ## 初回準備編
-### Kaynoをダウンロードして初期設定バッチを実行する
+### Kaynoをダウンロードして準備する
 
 ### **0-1**  
 リリース欄からKayno一式のZipファイルをダウンロードします。  
@@ -37,33 +37,10 @@
 必要なライブラリやStable Diffusionやモデル、拡張機能をダウンロードしましょう！  
 (後日まとめてインストールできる仕組みを提供予定)
 
-・Python, Git (winget)   
-・Stable Diffusion WebUI   
-　・拡張機能   
-　・ControlNet   
-　・(+オプションで)  
-　　・prompt-all-in-one  
-　　・tag-autocomplete  
-　　・Dynamic CFG  
-　　・infinite-image-browsing  
-　　・civitai helper  
+別途用意したこちらのファイルをご覧ください。
+[→ReadMe.チュートリアル.SDWebUI準備](./ReadMe.チュートリアル.SDWebUI準備.md)
 
-・モデル  
-　・おすすめのモデル:  
-　　**MiaoMiao Harem**  
-　　#キャラ #2次元～2・5次元  
-　　(https://civitai.com/models/934764?modelVersionId=1468334)
-
-　・VAE  
-　　・ema系  
-　　・sdxl_vae  
-
-　・ControlNet用モデル  
-　　・SD1.5、  
-　　・SD2.0  
-　　・SDXL bdsqlsz系  
-
-10分くらい待ったら完了です。
+終わったらこちらのチュートリアル本体のmdファイルまで戻ってきてください。
 
 ### **0-3b　すでにStable Diffusionの環境がある場合**
 次に進みます。
@@ -130,6 +107,12 @@ Kayno.AI.Studioでは、次のフォルダを内部で使用します。
 <br>
 
 **完了すると画像が出来上がります！かんたんですね！**
+
+> **🤔 うまくラフからAIに読み込ませるには？**  
+> デフォルトのControlNetでは線画やラフに追従しないので、  
+> **ラフから線画ならSDXL用のモデルがおすすめです！(青龍さんやkataragiさん等)**  
+> ※リンクは準備編で紹介しています。  
+> [→ReadMe.チュートリアル.SDWebUI準備](./ReadMe.チュートリアル.SDWebUI準備.md)
 
 <br>
 
