@@ -21,6 +21,16 @@
 https://note.com/hanagasa_manya/n/n582b5fb724a5
 -->
 
+**Q**　ControlNetのSketchやLineArtモードでラフからうまく元のキャラの輪郭やイメージが保てません…  
+**A**　SDXL用のモデルを使いましょう。※チュートリアルにも追記しました。  
+> **🤔 うまくラフからAIに読み込ませるには？**  
+> デフォルトのControlNetでは線画やラフに追従しないので、  
+> **ラフから線画ならSDXL用のモデルがおすすめです！(青龍さんやkataragiさん等)**  
+> ※リンクは準備編で紹介しています。  
+> [→ReadMe.チュートリアル.SDWebUI準備](./ReadMe.チュートリアル.SDWebUI準備.md)
+
+<br>
+
 **Q**　狙った通りのイラスト・画像が出ないのですが、
 どうすればいいですか？  
 
@@ -49,6 +59,7 @@ SDXL、Pony、Illustrious系は1024前後はないと厳しいかも？
 | blur     | kohya / blur gaussian                 | 0.7                     | s0 e0.7                         |                    |        |
 | tile     | bdsqlsz / tile anime β, tile colorfix | 0.7                     | s0 e0.7                         |                    | 画風の変更に |
 
+<br>
 
 ### アプリ設定・機能編
 **Q**　アプリの設定はどこに保存されていますか？  
